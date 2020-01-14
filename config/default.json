@@ -1,0 +1,20 @@
+{
+    "host": {
+        "url": "http://localhost:9000"
+    },
+    "api": {
+        "url": "https://jsonplaceholder.typicode.com"
+    },
+    "env": "default",
+    "platform": "WEB_SITE",
+    "domain": "BUYER",
+    "ports": {
+        "BUYER": {
+            "port": 3000,
+            "m_port": 3001
+        }
+    },
+    "cdnUrl": "http://localhost:9000",
+    "cdnImgUrl": "http://localhost:9000",
+    "logsPath": "/mnt/felogs"
+}

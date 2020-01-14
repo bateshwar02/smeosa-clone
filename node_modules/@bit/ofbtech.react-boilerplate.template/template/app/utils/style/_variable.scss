@@ -1,0 +1,145 @@
+// Font weights
+$light: 300;
+$regular: 400;
+$bold: 600;
+
+// Media Query Ranges
+$small-screen-up: 768px !default;
+$medium-screen-up: 993px !default;
+$large-screen-up: 1200px !default;
+$small-screen: 767px !default;
+$medium-screen: 992px !default;
+$large-screen: 1199px !default;
+$extreme-large-screen: 1600px !default;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen-up})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
+$extra-large-and-up: "only screen and (min-width : #{$large-screen})" !default;
+$large-and-down: "only screen and (max-width : #{$large-screen})" !default;
+$extreme-large-and-up: "only screen and (min-width : #{$extreme-large-screen})" !default;
+
+// Grid Variables
+$num-cols: 12 !default;
+$gutter-width: 20px !default;
+$element-top-margin: $gutter-width/3 !default;
+$element-bottom-margin: ($gutter-width*2)/3 !default;
+
+// Colors
+
+$black87: rgba(0, 0, 0, 0.87) !default;
+$black70: rgba(0, 0, 0, 0.70) !default;
+$black54: rgba(0, 0, 0, 0.54) !default;
+$black37: rgba(0, 0, 0, 0.37) !default;
+$black24: rgba(0, 0, 0, 0.24) !default;
+$black08: rgba(0, 0, 0, 0.08) !default;
+$white87: rgba(255, 255, 255, 0.87);
+$white70: rgba(255, 255, 255, 0.70);
+$white54: rgba(255, 255, 255, 0.54);
+$white37: rgba(255, 255, 255, 0.37);
+$white24: rgba(255, 255, 255, 0.24);
+$white: #ffffff;
+$black: #000000;
+$ofbGreen: #20BEB3 !default;
+$ofbDarkBlue: #0070D2 !default;
+$ofbBlue: #437198;
+$offWhite: #f6f6f6;
+$red: #FA3365;
+
+$color-master: #626262;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-success: #5cb85c;
+$color-info: #5bc0de;
+$color-warning: #ffbb33;
+$color-danger: 	#d9534f;
+$color-primary: #428bca;
+$color-complete: #2BBBAD;
+$color-primary: #4285F4;
+$color-ofb-green: #26a69a;
+$color-ofb-blue: #16325C;
+$color-ofbBlue-hover: #198cf0;
+
+//Mixing Color varriable for creating both light and dark colors
+$mix-percentage-dark: 81%;
+$mix-percentage-darker: 60%;
+$mix-percentage-light: 80%;
+$mix-percentage-lighter: 20%;
+
+//Lighter colors
+$color-success-light: mix($color-success, $color-white, $mix-percentage-light);
+$color-success-lighter: mix($color-success, $color-white, $mix-percentage-lighter);
+
+$color-complete-light: mix($color-complete, $color-white, $mix-percentage-light);
+$color-complete-lighter: mix($color-complete, $color-white, $mix-percentage-lighter);
+
+$color-primary-light: mix($color-primary, $color-white, $mix-percentage-light);
+$color-primary-lighter: mix($color-primary, $color-white, $mix-percentage-lighter);
+
+$color-warning-light: mix($color-warning, $color-white, $mix-percentage-light);
+$color-warning-lighter: mix($color-warning, $color-white, $mix-percentage-lighter);
+
+$color-danger-light: mix($color-danger, $color-white, $mix-percentage-light);
+$color-danger-lighter: mix($color-danger, $color-white, $mix-percentage-lighter);
+
+$color-info-light: mix($color-info, $color-white, $mix-percentage-light);
+$color-info-lighter: mix($color-info, $color-white, $mix-percentage-lighter);
+
+//Darker colors
+$color-success-dark: mix($color-success, $color-black, $mix-percentage-dark);
+$color-success-darker: mix($color-success, $color-black, $mix-percentage-darker);
+
+$color-complete-dark: mix($color-complete, $color-black, $mix-percentage-dark);
+$color-complete-darker: mix($color-complete, $color-black, $mix-percentage-darker);
+
+$color-primary-dark: mix($color-primary, $color-black, $mix-percentage-dark);
+$color-primary-darker: mix($color-primary, $color-black, $mix-percentage-darker);
+
+$color-warning-dark: mix($color-warning, $color-black, $mix-percentage-dark);
+$color-warning-darker: mix($color-warning, $color-black, $mix-percentage-darker);
+
+$color-danger-dark: mix($color-danger, $color-black, $mix-percentage-dark);
+$color-danger-darker: mix($color-danger, $color-black, $mix-percentage-darker);
+
+$color-info-dark: mix($color-info, $color-black, $mix-percentage-dark);
+$color-info-darker: mix($color-info, $color-black, $mix-percentage-darker);
+
+// Lighter Grey colors
+$color-master-light:mix($color-master, #fff, 16%);
+$color-master-lighter:mix($color-master, #fff, 9.5%);
+$color-master-lightest:mix($color-master, #fff, 3%);
+
+// Darker Grey colors
+$color-master-dark:mix($color-master, #000, 45%);
+$color-master-darker:mix($color-master, #000, 27%);
+$color-master-darkest:mix($color-master, #000, 18%);
+
+$color-menu: #2d353c;
+$color-menu-header: #6d7983;
+$color-menu-darker: #6d7983;
+$color-menu-link-hover: #232a2f;
+
+$body-background: #FAFAFA;
+$body-color: #707478;
+$body-font-size: 13px;
+$body-font-family: 'Open Sans', sans-serif;
+
+$color-form-boder: #ccd0d4;
+$color-form-hover: #9fa2a5;
+
+// Black Color Variations
+$color-black-87: rgba(0,0,0,0.87);
+$color-black-54: rgba(0,0,0,0.54);
+$color-black-03: rgba(0,0,0,0.03);
+
+// Layout Settings
+$sidebar-width: 220px;
+
+// background color
+$bgColor-blue: #F4F6FC;
+
+// border color
+$border-color: #a8b7c7;
+$border-color-light: #d8dde6;

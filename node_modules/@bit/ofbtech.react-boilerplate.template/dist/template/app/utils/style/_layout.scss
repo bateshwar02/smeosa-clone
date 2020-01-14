@@ -1,0 +1,503 @@
+*:before, *:after { box-sizing: border-box; }
+
+html { height: 100%; }
+body { -webkit-text-size-adjust: 100%; line-height: 1.5; font-family: $body-font-family, sans-serif; color: $color-ofb-blue; font-size: 14px; margin: 0; padding: 0; background: #F4F6FC; }
+
+a { text-decoration: none; }
+
+.hide { display: none !important; }
+
+.clearFix{
+  clear: both;
+}
+
+.alignCenter{
+  text-align: center;
+}
+.alignRight{
+  text-align: right;
+}
+.alignLeft{
+  text-align: left;
+}
+
+.ellipsisText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inlineBlock{
+  display: inline-block;
+}
+
+.subHeading {
+  font-weight: 600;
+  color: $color-ofb-blue;
+  vertical-align: top;
+  line-height: auto;
+  &.noTopMargin{
+    margin-top: 0px;
+  }
+  &.h2 {
+    font-size: 20px;
+  }
+  &.h3 {
+    font-size: 18px;
+  }
+  &.h4 {
+    font-size: 16px;
+  }
+  &.h5 {
+    font-size: 14px;
+  }
+  &.h6 {
+    font-size: 12px;
+  }
+  &.light-heading {
+    font-weight: 400;
+    opacity: 0.6;
+  }
+}
+
+.labelOpacity, .valueOpacity{
+  opacity: 0.7;
+}
+.opacityText {
+  opacity: 0.6;
+}
+
+.flexBox {
+  display: flex;
+  align-items: center;
+  .flexGrow1 {
+    flex-grow: 1;
+  }
+}
+
+.textRight { text-align: right; }
+.textCenter { text-align: center; }
+.textLeft { text-align: left; }
+
+.notFoundWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 50vh;
+  font-size: 14px;
+  color: $black54;
+  margin-left: 10px;
+  margin-right: 10px;
+  img {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.cardItemWrapper {
+    // margin-top: 28px;
+    padding: 0px;
+    &.addBottomPadding {
+      padding-bottom: 100px;
+    }
+    &:first-child {
+      margin-top: 0px;
+    }
+    .subHeading {
+      margin-bottom: 10px;
+      flex-grow: 1;
+      &.h3 {
+        margin-top: 30px;
+        margin-bottom: 0px;
+      }
+      &.noTopMargin{
+        margin-top: 0px;
+      }
+    }
+    .h3 + .h4 {
+      margin-top: 10px;
+    }
+    .innerDetailsWrapper {
+      border: 1px solid $border-color-light;
+      padding: 14px 16px 15px;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      position: relative;
+      &.cursor{
+        cursor: pointer;
+      }
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+    &.smallWrapper {
+      .innerDetailsWrapper {
+        min-height: 47px;
+      }
+    }
+  }
+
+  // tooltip
+.tooltip {
+  position: relative;
+  display: inline-block;
+  &:focus {
+    outline: none;
+  }
+  .toolTipText {
+    display: none;
+    width: auto;
+    min-width: 80px;
+    background-color: $white;
+    border: 1px solid #d3d3d3;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -80px;
+  }
+  &:hover .toolTipText {
+    display: inherit;
+  }
+}
+
+  .invoiceNav {
+    border: none;
+    border-top: 1px solid #d8dde6;
+    border-bottom: 1px solid #d8dde6;
+    background-color: #f4f6fc;
+    // overflow: scroll;
+    .nav-tab {  
+        margin: 0px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0px;
+      li {
+        display: block;
+        position: relative;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+        color: $black37;
+        list-style: none;
+        margin: 0px;
+        padding: 0px 24px;
+        white-space: nowrap;
+        button {
+          padding: 8px 0 10px;
+          outline: 0;
+          display: block;
+          color: $color-ofb-blue;
+          opacity: 0.7;
+          font-weight: 400;
+        }
+        &:after {
+          transition: all 0.1s linear 0s;
+          width: 100%;
+          left: 0;
+          display: block;
+          height: 0px;
+          content: "";
+          z-index: 1;
+          position: absolute;
+          bottom: 0px;
+          border-radius: 10px 10px 0px 0px;
+          background-color: $ofbDarkBlue;
+        }
+        &:hover {
+          text-decoration: none;
+          &:after {
+            height: 4px;
+          }
+        }
+        &.active {
+          background: none;
+          cursor: default;
+          button {
+            cursor: default;
+            opacity: 1;
+            font-weight: 600;
+            color: $ofbDarkBlue;
+          }
+          &:after {
+            height: 4px;
+          }
+        }
+      }
+    }
+    .barScroller{
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      width: 60px;
+      background-color: $white;
+      height: 41px;
+      z-index: 9;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+.listWrapper-parentBlock {
+    padding: 10px 16px;
+    .subHeading {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      &.noTopMargin{
+        margin-top: 0px;
+      }
+    }
+    .listWrapper-blocks {
+      border: 1px solid $border-color-light;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $color-ofb-blue;
+      vertical-align: top;
+      line-height: auto;
+      .row {
+        margin-bottom: 10px;
+        .tooltip {
+          .toolTipText {
+            margin-left: -100px;
+          }
+        }
+        &:last-child {
+          margin-bottom: 0px;
+        }
+      }
+      .opacityText {
+        opacity: 0.6;
+      }
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+    .action{
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 30px;
+      .btn{
+        flex-grow: 1;
+        max-width: 150px;
+        &.btn-default{
+          margin-right: 10px;
+        }
+      }
+    }
+}
+
+@media (max-width: 767px) {
+  .listWrapper-parentBlock {
+    padding: 10px 16px;
+    .subHeading {
+      font-size: 16px;
+    }
+    .listWrapper-blocks {
+      padding-bottom: 2px;
+      .row {
+        margin-bottom: 0px;
+        .col{
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}
+
+.backwardRedirection {
+    padding: 14px 20px;
+    background-color: $white;
+    height: 51px;
+    border-bottom: 1px solid #d8dde6;
+    .universal-linkTxt {
+      font-size: 16px;
+      color: $color-ofb-blue;
+      font-weight: 600;
+  
+      outline: none;
+      svg {
+        margin-right: 6px;
+      }
+    }
+}
+
+// table layout for listing page
+.tableListView {
+  margin: 0px 20px;
+  .invoiceTableHeader, .tableListHeaderRow {
+    border: 1px solid #d8dde6;
+    padding: 13px;
+    font-weight: 600;
+    opacity: 0.7;
+    color: $color-ofb-blue;
+    // box-shadow: 0px 1px 0px 0px rgba(63, 63, 68, 0.15);
+    box-shadow: 0px 1px 3px 0px rgba(22, 50, 92, 0.22);
+  }
+  .invoicetableData, .tableListDataRow {
+    border-bottom: 1px solid #d8dde6;
+    border-left: 1px solid #d8dde6;
+    border-right: 1px solid #d8dde6;
+    padding: 13px;
+    &.cursor{
+      cursor: pointer;
+    }
+  }
+}
+
+.no-doc-uploaded {
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  margin: 10px 0px 10px 0px;
+  height: 80px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  .uploadTextNoDoc {
+    opacity: 0.7;
+    color: $color-ofb-blue;
+  }
+}
+.uploadedDocsBlock {
+  border: 1px solid #d3d3d3;
+  margin: 10px 0px 10px 0px;
+  border-radius: 2px;
+  .doc-item{
+    padding: 8px;
+    border-bottom: 1px solid #d3d3d3;
+    display: flex;
+    .fileName{
+      flex-grow: 1;
+    }
+    .btn-remove{
+      padding: 0px 6px;
+      min-height: unset;
+    }
+    &:last-child{
+      border: unset;
+    }
+  }
+}
+
+.amtInputFigure{
+  position: relative;
+  .inWords, .datePostInput {
+    position: absolute;
+    top: 26px;
+    right: 11px;
+    font-weight: 600;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .inWords {
+    min-width: 80px;
+    background: #f4f6fc;
+    box-align: center;
+    box-pack: center;
+    color: rgba(40,39,38,.7);
+  }
+  .datePostInput{
+    // width: 65px;
+    color: rgba(40, 39, 38, 0.7);
+  }
+}
+
+
+.deviceBlock {
+  padding: 0px 20px;
+}
+
+.statusHeader {
+  padding: 6px 24px;
+  color: #2cb906;
+  height: 38px;
+  margin-left: -17px;
+  line-height: 24px;
+  vertical-align: top;
+  font-size: 14px;
+  font-weight: 600;
+
+  margin-left: 0px;
+  background-color: $bgColor-blue;
+  border-top: 2px solid #2cb906;
+}
+
+.statusRedirectionWrapper{
+  display: flex;
+  justify-content: space-between;
+}
+/* Generic Padding Helpers
+------------------------------------
+*/
+
+@mixin generate-paddings-options($n, $j:0){
+  @if $j <= $n {
+      @for $i from $j through $n {
+          $step : $i*5;
+
+          .p-t-#{$step} {
+              padding-top: ($step*1px) !important;
+          }
+          .p-r-#{$step} {
+              padding-right: ($step*1px) !important;
+          }
+          .p-l-#{$step} {
+              padding-left: ($step*1px) !important;
+          }
+          .p-b-#{$step} {
+              padding-bottom: ($step*1px) !important;
+          }
+          .padding-#{$step} {
+              padding: ($step*1px) !important;
+          }
+      }
+  }
+}
+
+@include generate-paddings-options(6);
+
+/* Generic Margin Helpers
+------------------------------------
+*/
+@mixin generate-margin-options($n, $j: 0) {
+  @if $j <= $n {
+      @for $i from $j through $n {
+          $step : $i*5;
+          .m-t-#{$step} {
+              margin-top: ($step*1px);
+          }
+          .m-r-#{$step} {
+              margin-right: ($step*1px);
+          }
+          .m-l-#{$step} {
+              margin-left: ($step*1px);
+          }
+          .m-b-#{$step} {
+              margin-bottom: ($step*1px);
+          }
+      }
+  }
+}
+
+@include generate-margin-options(6);
