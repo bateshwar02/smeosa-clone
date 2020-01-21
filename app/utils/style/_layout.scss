@@ -3,6 +3,7 @@
 html { height: 100%; }
 body { -webkit-text-size-adjust: 100%; line-height: 1.5; font-family: $body-font-family, sans-serif; color: $color-ofb-blue; font-size: 14px; margin: 0; padding: 0; background: #F4F6FC; }
 
+.contentDataWrapper {position: absolute; top: 160px; bottom: 10px; left: 0px; right: 0px; overflow: auto; }
 a { text-decoration: none; }
 
 .hide { display: none !important; }

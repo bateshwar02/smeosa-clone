@@ -45,7 +45,7 @@ export function ToDo({ todos, filter, changeStatus, changeFilter, searchQuery, s
     return (
         <div className="todolist">
             <Helmet>
-                <title>ToDo</title>
+                <title>SMEosa</title>
                 <meta name="description" content="Description of ToDo" />
             </Helmet>
             <header>

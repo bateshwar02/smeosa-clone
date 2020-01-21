@@ -1,0 +1,55 @@
+
+@import "../../utils/style/variable";
+
+.modal { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 99; transition: all 450ms ease-in-out; display: flex; flex-direction: column; justify-content: center; align-items: center;
+	.modalInnerContent { max-width: 720px; width: 100%; background-color: $white; z-index: 2; border-top-left-radius: 6%; border-top-right-radius: 6%; max-height: 90%; display: flex; flex-direction: column; min-height: 50vh;
+		&.s { max-width: 380px; }
+		&.m { max-width: 520px;}
+		&.l { max-width: 720px;}
+		&.xl { max-width: 850px;}
+		&.xxl { max-width: 980px;}
+	}
+	.backdropOverlay { position: fixed; left: 0; top: 0; background: $black54; width: 100%; height: 100%; z-index: 1; }
+	.close { font-size: 30px; color: #16325c; border: none; padding: 0px; box-shadow: none; font-weight: 400; }
+	.modalHeader { display: flex; align-items: center; min-height: 56px; padding: 0 20px; border-bottom: 1px solid #d8dde6;
+		.modalTitle { flex-grow: 1; text-align: center; font-size: 20px; font-weight: 600; color: $color-ofb-blue;}
+	}
+	.modalContent { padding: 20px; flex-grow: 1; overflow-y: auto; min-height: 50vh; }
+	.modalFooter { min-height: 55px; padding: 0 20px; display: flex; align-items: center; justify-content: flex-end; border-top: 1px solid #dfe3e8; box-shadow: 0px 0px 5px 0px rgba(119, 151, 178, 0.3);
+		.btn { min-width: 86px; margin-left: 16px;}
+	}
+}
+
+@media (max-width: 480px) {
+    .modal{
+        .modalInnerContent { flex-grow: 1; width: 100%; max-width: none; height: 100%; max-height: none; border-radius: 0;
+			.close{ top: 12px; right: 15px; background-color: transparent; }
+		}
+		.modalFooter { padding: 10px 20px; justify-content: space-between;
+			.btn { min-width: unset; margin-left: 0px; flex-grow: 1;
+				&.btn-primary{
+					margin-left: 10px;
+				}
+			}
+		}
+    }
+}
+.loginModal{ position: fixed; bottom: 0px; height: 584px; min-width: 360px; }
+  @media (max-width: 480px) {
+    .modal{
+        .loginModal { flex-grow: 1; width: 100%; max-width: none; height: 75%; max-height: none; border-top-left-radius: 6%; border-top-right-radius: 6%;
+			.close{ top: 12px; right: 15px; background-color: transparent; }
+			.modalHeader{border-bottom: 0px;}
+			.modalFooter{display: flex; justify-content: center;}
+			.getOtpWrapper { background: #691dd3; min-width: 320px; min-height: 35px; display: flex; justify-content: center; align-items: center;
+    color: #ffffff; font-size: 14px; font-weight: 600; }
+		}
+		.modalFooter { padding: 10px 20px; justify-content: space-between;
+			.btn { min-width: unset; margin-left: 0px; flex-grow: 1;
+				&.btn-primary{
+					margin-left: 10px;
+				}
+			}
+		}
+    }
+}

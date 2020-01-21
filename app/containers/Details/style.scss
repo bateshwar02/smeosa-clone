@@ -1,0 +1,23 @@
+.detailsPageWrapper{position: fixed; display: flex; top: 60px; margin: 20px 16px; 
+    .brandWrapper{
+        display: grid;
+        grid-auto-flow: column; 
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto;
+    grid-column-gap: 5px;
+    grid-row-gap: 15px;
+    justify-content: space-around;
+    }
+    .brandsList{box-shadow: 0 1px 1px 0 rgba(99, 99, 99, 0.2);
+        height: 50px;
+        width: 70px;
+        background: #ffffff;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+        text-align: center;
+        align-items: center;
+       .brandIcon{ img{height:44px; width: 44px;}}
+    }
+}

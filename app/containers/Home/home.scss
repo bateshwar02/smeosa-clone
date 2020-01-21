@@ -1,0 +1,21 @@
+.homeWrapper{padding: 20px 16px 10px 16px; overflow-x: hidden;
+   .categoryWrapper, .brandWrapper{
+       .header{font-size: 18px;font-weight: 600; color: #31394e;}
+       .content {margin: 20px 0px; display: grid; grid-template-columns: auto auto auto auto; grid-template-rows: auto;
+         grid-column-gap: 5px; grid-row-gap: 15px; justify-content: space-around;
+           .contentWrapper{ box-shadow: 0 1px 1px 0 rgba(99,99,99,.2); height: 80px; width: 80px; background: #ffffff; border-radius: 3px;
+               .image{ display: flex; justify-content: space-around; width: 100%; height: 75%; object-fit: cover; overflow: hidden; }   
+               .name {display: flex; justify-content: center; font-size: 11px; font-weight: 600; color: #7101cd;}          
+          }
+       }
+   }
+}
+.landingPageWrapper{
+   display: flex;justify-content: center;text-align: center;align-items: center;
+   height: 100%; width: 100%; left: 0; top: 0; overflow: hidden; position: fixed;
+    background: linear-gradient(to bottom, #07003b 10%, #07003b 20%, #07003b 80%, #000000 100%);
+    .logoText{ color: #ffffff; font-size: 26px; font-weight: 600; margin: 0px 65px 125px 0px;
+      .text{ font-size: 18px; display: flex; justify-content: flex-start; margin-left: 88px; font-style: italic; text-transform: uppercase;
+      }
+    }
+}
