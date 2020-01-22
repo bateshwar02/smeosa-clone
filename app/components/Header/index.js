@@ -4,14 +4,37 @@ import Modal from '../Modal';
 import Login from '../../containers/Login';
 import './header.scss';
 
-function Header({ toggleMenu, isCustomHeader }) {
+const location = {
+    list_of_popular_city: [
+        { id: '1', name: 'Delhi' },
+        { id: '2', name: 'Gujrat' },
+        { id: '3', name: 'Haryana' },
+        { id: '4', name: 'Madhya Pradesh' },
+        { id: '5', name: 'Maharashtra' },
+    ],
+    other_city: [
+        { id: '6', name: 'Andaman & Nicobar Islands' },
+        { id: '7', name: ' Andhra Pradesh' },
+        { id: '8', name: 'Arunachal Pradesh' },
+        { id: '9', name: 'Assam' },
+        { id: '10', name: 'Bihar' },
+    ],
+};
+
+function Header({ toggleMenu, isCustomHeader, type, goBack }) {
     const [isLogin, setLogin] = useState(false);
+    const [isLocation, setLocation] = useState(false);
 
     const closeModal = () => {
         setLogin(false);
+        setLocation(false);
     };
     const login = () => {
         setLogin(true);
+    };
+
+    const setLocationState = () => {
+        setLocation(true);
     };
     const getFooter = () => (
         <div className="getOtpWrapper">
@@ -19,12 +42,40 @@ function Header({ toggleMenu, isCustomHeader }) {
         </div>
     );
 
+    const getLocationFooter = () => <div></div>;
+
+    const childData = array =>
+        array.map(item => (
+            <span className="item" key={item.id}>
+                {item.name}
+            </span>
+        ));
+
+    const locationData = () =>
+        Object.keys(location).map(item => (
+            <div className="locationWrapper">
+                <div className="cityType">
+                    <span className="typeOfCity">{item.replace('_', ' ')}</span>
+                    {childData(location[item])}
+                </div>
+            </div>
+        ));
+
     const detailPageHeader = () => (
         <div className="customHeaderWrap">
-            <span className="backIcon">
+            <span
+                role="button"
+                tabIndex={0}
+                className="backIcon"
+                onClick={() => {
+                    goBack();
+                }}
+            >
                 <i className="material-icons">keyboard_backspace</i>
             </span>
-            <span className="header">TMT In Delhi</span>
+            <span className="header" role="button" tabIndex={0} onClick={setLocationState}>
+                {type} In Delhi
+            </span>
         </div>
     );
 
@@ -70,6 +121,16 @@ function Header({ toggleMenu, isCustomHeader }) {
             {isLogin && (
                 <Modal modalClass="loginModal" onCancel={closeModal} modalHeader="Let's Get Started" modalContent={<Login />} modalFooter={getFooter()} />
             )}
+
+            {isLocation && (
+                <Modal
+                    modalClass="loginModal"
+                    onCancel={closeModal}
+                    modalHeader="Select Location"
+                    modalContent={locationData()}
+                    modalFooter={getLocationFooter()}
+                />
+            )}
         </header>
     );
 }
@@ -77,6 +138,8 @@ function Header({ toggleMenu, isCustomHeader }) {
 Header.propTypes = {
     toggleMenu: PropTypes.func.isRequired,
     isCustomHeader: PropTypes.bool.isRequired,
+    type: PropTypes.string.isRequired,
+    goBack: PropTypes.func.isRequired,
 };
 
 export default Header;

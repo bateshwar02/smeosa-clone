@@ -4,15 +4,16 @@
  *
  */
 import produce from 'immer';
-import { DEFAULT_ACTION } from './constants';
+import { SET_STATE } from './constants';
 
 export const initialState = {};
 
 /* eslint-disable default-case, no-param-reassign */
 const detailsReducer = (state = initialState, action) =>
-    produce(state, (/* draft */) => {
+    produce(state, draft => {
         switch (action.type) {
-            case DEFAULT_ACTION:
+            case SET_STATE:
+                draft.detailPage = action.detailPage;
                 break;
         }
     });

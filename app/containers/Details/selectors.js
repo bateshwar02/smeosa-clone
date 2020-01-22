@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the details state domain
  */
 
-const selectDetailsDomain = state => state.details || initialState;
+const selectDetailsDomain = state => state.detailPage || initialState;
 
 /**
  * Other specific selectors
@@ -15,11 +15,11 @@ const selectDetailsDomain = state => state.details || initialState;
  * Default selector used by Details
  */
 
-const makeSelectDetails = () =>
+const makeSetStateDetails = () =>
     createSelector(
         selectDetailsDomain,
-        substate => substate,
+        detailPage => detailPage,
     );
 
-export default makeSelectDetails;
-export { selectDetailsDomain };
+export default makeSetStateDetails;
+export { selectDetailsDomain, makeSetStateDetails };

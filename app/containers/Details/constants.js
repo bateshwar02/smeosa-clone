@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/Details/DEFAULT_ACTION';
+export const SET_STATE = 'app/Details/SET_STATE';

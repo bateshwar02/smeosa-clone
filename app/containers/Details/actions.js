@@ -1,13 +1,8 @@
-/*
- *
- * Details actions
- *
- */
+import { SET_STATE } from './constants';
 
-import { DEFAULT_ACTION } from './constants';
-
-export function defaultAction() {
+export function setState(detailPage) {
     return {
-        type: DEFAULT_ACTION,
+        type: SET_STATE,
+        detailPage,
     };
 }

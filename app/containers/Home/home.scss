@@ -9,6 +9,11 @@
           }
        }
    }
+   .brandWrapper{ 
+      .contentWrapper{ display: flex; justify-content: space-around; align-content: center; text-align: center; align-items: center;
+        img{ height:50px; width:48px; }
+    }
+  }
 }
 .landingPageWrapper{
    display: flex;justify-content: center;text-align: center;align-items: center;

@@ -1,16 +1,18 @@
-// import React, { memo } from 'react';
-import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import { compose } from 'redux';
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose, bindActionCreators } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-// import makeSelectDetails from './selectors';
+import makeSetStateDetails from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import * as Actions from './actions';
+// import Utils from '../../utils/common';
 import Header from '../../components/Header/Loadable';
+import DetailsPage from '../../components/DetailsPage/Loadable';
 import './style.scss';
 
 const brandsList = [
@@ -19,10 +21,12 @@ const brandsList = [
     'https://banner2.cleanpng.com/20180624/fwe/kisspng-jindal-steel-power-limited-jindal-steel-and-powe-5b2fc6d3a31274.762174511529857747668.jpg',
     'https://seeklogo.com/images/J/jsw-steel-logo-82ED4A72F6-seeklogo.com.png',
 ];
-export function Details() {
-    useInjectReducer({ key: 'details', reducer });
-    useInjectSaga({ key: 'details', saga });
 
+export function Details({ detailPage, history }) {
+    useInjectReducer({ key: 'detailPage', reducer });
+    useInjectSaga({ key: 'detailPage', saga });
+
+    const { type } = detailPage.urlParams;
     const getBrandList = () =>
         brandsList.map(item => (
             <div className="brandsList" key={item}>
@@ -32,45 +36,46 @@ export function Details() {
             </div>
         ));
 
+    const toggleMenu = () => {};
     return (
         <>
-            <Header toggleMenu="" isCustomHeader />
+            <Header toggleMenu={toggleMenu} isCustomHeader type={type} goBack={history.goBack} />
             <div className="pageWrapper">
                 <div className="detailsPageWrapper">
                     <div className="brandWrapper">
-                        <div className="brandsList">
-                            <span className="text">All Brand</span>
+                        <div className="brandsList allWrapper active">
+                            <span className="all">All</span>
+                            <span className="text">Brand</span>
                         </div>
                         {getBrandList()}
                     </div>
                 </div>
+                <DetailsPage type={type} />
             </div>
         </>
     );
 }
 
-// Details.propTypes = {
-//     dispatch: PropTypes.func.isRequired,
-// };
+Details.propTypes = {
+    detailPage: PropTypes.object,
+    history: PropTypes.object.isRequired,
+};
 
-// const mapStateToProps = createStructuredSelector({
-//     details: makeSelectDetails(),
-// });
+Details.defaultProps = {
+    detailPage: {},
+};
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         dispatch,
-//     };
-// }
+const mapStateToProps = createStructuredSelector({
+    detailPage: makeSetStateDetails(),
+});
 
-// const withConnect = connect(
-//     mapStateToProps,
-//     mapDispatchToProps,
-// );
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 
-// export default compose(
-//     withConnect,
-//     memo,
-// )(Details);
-
-export default Details;
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+export default compose(
+    withConnect,
+    memo,
+)(Details);

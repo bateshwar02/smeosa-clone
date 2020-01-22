@@ -1,14 +1,25 @@
-.detailsPageWrapper{position: fixed; display: flex; top: 60px; margin: 20px 16px; 
+.detailsPageWrapper::-webkit-scrollbar {
+    display: none;
+}
+.detailsPageWrapper{position: fixed; display: flex; top: 60px; margin: 20px 16px; width: 90%; overflow-x: auto;-ms-overflow-style: none;
     .brandWrapper{
         display: grid;
         grid-auto-flow: column; 
-    grid-template-columns: auto auto auto auto;
-    grid-template-rows: auto;
-    grid-column-gap: 5px;
-    grid-row-gap: 15px;
-    justify-content: space-around;
+        grid-template-columns: auto auto auto auto;
+        grid-template-rows: auto;
+        grid-column-gap: 5px;
+        grid-row-gap: 15px;
+        justify-content: space-around;
+        padding: 2px 0px;
+        .allWrapper{ display: grid;
+            grid-auto-flow: row;
+            opacity: 80%;
+            font-size: 11px;
+            color: #7101cd;
+        }
+        .active{border: 1px solid #7101cd;}
     }
-    .brandsList{box-shadow: 0 1px 1px 0 rgba(99, 99, 99, 0.2);
+    .brandsList{box-shadow: 0 2px 1px 0 rgba(99, 99, 99, 0.2);
         height: 50px;
         width: 70px;
         background: #ffffff;
