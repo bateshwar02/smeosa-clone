@@ -32,3 +32,33 @@
        .brandIcon{ img{height:44px; width: 44px;}}
     }
 }
+.detailPageContainWrapper{ margin: 150px 16px 10px 16px;
+    .listWrapper{ background: #ffffff; display: grid; 
+         grid-auto-flow: row;
+         border: 1px solid #d8dde6;
+         border-radius: 2px;
+         box-shadow: 0 1px 1px 0 rgba(99,99,99,.2);
+         .headerName{ padding: 14px 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #7101cd;
+         }
+         .contentWrapper{  font-size: 14px;
+            color: #16325c;
+             .header{display: grid;
+                grid-auto-flow: column;
+                justify-content: space-between;
+                padding: 6px 12px;
+                background: #e8fcfb;
+                font-weight: 600;
+
+             }
+             .content{display: grid;
+                grid-auto-flow: column;
+                justify-content: space-between;
+                padding: 6px 12px;
+             }
+         }
+
+    }
+}

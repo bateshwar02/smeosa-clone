@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Home from './home';
+import { getDataByRegion } from './actions';
 
 class HomePage extends Component {
     constructor(props) {
@@ -49,7 +53,11 @@ class HomePage extends Component {
         }
         return (
             <section className="pageWrapper">
-                <Header toggleMenu={this.drawerToggleClickHandler} isCustomHeader={false} />
+                <Header
+                    toggleMenu={this.drawerToggleClickHandler}
+                    isCustomHeader={false}
+                    getCategoryBrandDataByRegion={this.props.getCategoryBrandDataByRegion}
+                />
                 <Sidebar show={this.state.sideDrawerOpen} />
                 <div className="contentDataWrapper">
                     <Home />
@@ -60,4 +68,19 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+HomePage.propTypes = {
+    getCategoryBrandDataByRegion: PropTypes.func.isRequired,
+};
+const mapDispatchToProps = dispatch => ({
+    getCategoryBrandDataByRegion: regionId => dispatch(getDataByRegion(regionId)),
+});
+const withConnect = connect(
+    null,
+    mapDispatchToProps,
+);
+export default compose(
+    withConnect,
+    memo,
+)(HomePage);
+
+// export default HomePage;

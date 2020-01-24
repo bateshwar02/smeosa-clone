@@ -6,13 +6,13 @@
 
 header{position: absolute; top: 0px; left: 0px; height: 160px; right: 0px; overflow: hidden;}
 .blank {background: #07003b; height: 24px;}
-.customHeaderWrap{background: linear-gradient(to right, #6a3bc9 10%, #1589ee 90%); padding: 10px; color:#ffffff; display:flex;
+.customHeaderWrap{background: linear-gradient(to right, #6a3bc9 30%, #1589ee 70%); padding: 10px; color:#ffffff; display:flex;
   .backIcon{display: flex; justify-content: center; align-items: center;}
   .header{ font-size: 18px; font-weight: 600; padding: 0px 6px;}
 }
 .headerWrap {  /*position: fixed; top: 24px; left: 0;*/ width: 100%; padding:15px 0px;
 background: #6a3bc9;
-background: linear-gradient(to right, #6a3bc9 10%, #1589ee 90%);
+background: linear-gradient(to right, #6a3bc9 30%, #1589ee 70%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6a3bc9', endColorstr='#6a3bc9',GradientType=1);
 .headerRow { position: relative; display: flex; align-items: center;
         &:first-child { flex-grow: 1;}

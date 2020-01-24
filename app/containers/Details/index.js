@@ -12,7 +12,7 @@ import saga from './saga';
 import * as Actions from './actions';
 // import Utils from '../../utils/common';
 import Header from '../../components/Header/Loadable';
-import DetailsPage from '../../components/DetailsPage/Loadable';
+import DetailsPage from './component/detail';
 import './style.scss';
 
 const brandsList = [

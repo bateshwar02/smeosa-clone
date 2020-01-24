@@ -34,10 +34,11 @@
 		}
     }
 }
-.loginModal{ position: fixed; bottom: 0px; height: 584px; min-width: 360px; }
+.loginModal, .regionModal{ position: fixed; bottom: 0px; height: 584px; min-width: 360px; }
+
   @media (max-width: 480px) {
     .modal{
-        .loginModal { flex-grow: 1; width: 100%; max-width: none; height: 75%; max-height: none; border-top-left-radius: 6%; border-top-right-radius: 6%;
+        .loginModal, .regionModal { flex-grow: 1; width: 100%; max-width: none; height: 80%; max-height: none; border-top-left-radius: 6%; border-top-right-radius: 6%;
 			.close{ top: 12px; right: 15px; background-color: transparent; }
 			.modalHeader{border-bottom: 0px;}
 			.modalFooter{display: flex; justify-content: center;}
@@ -52,4 +53,8 @@
 			}
 		}
     }
+}
+
+.regionModal {
+	.modalFooter{min-height: 0px; padding: 0px;}
 }

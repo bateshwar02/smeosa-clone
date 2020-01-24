@@ -1,0 +1,16 @@
+.form-group-search{
+    .control-label {display: none;}
+    .input-group{min-height:42px;
+       .input-group-addon{ background: #ffffff;}
+    }
+}
+.popularCityWrapper { margin-top: 30px;
+    .control-label{font-size: 16px; color: #222222; font-weight: 600;}
+}
+
+.otherCityWrapper {
+    .control-label{font-size: 16px; color: #222222; font-weight: 600;}
+}
+.checkbox-group{ label{ padding: 5px 0px;} }
+.checkboxLabel input[type="checkbox"]:checked + span:after {display: none;}
+.checkboxLabel > span:before {display:none}
