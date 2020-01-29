@@ -1,41 +1,48 @@
-import React, { Component, memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
+
+import { useInjectSaga } from '../../utils/injectSaga';
+import { useInjectReducer } from '../../utils/injectReducer';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Home from './home';
-import { getDataByRegion } from './actions';
+import makeSetStateDetails from './selectors';
+import * as Actions from './actions';
+import reducer from './reducer';
+import saga from './saga';
+import Utils from '../../utils/common';
 
-class HomePage extends Component {
-    constructor(props) {
-        super(props);
+export function HomePage({ homeData, getCategoryBrandData, history }) {
+    useInjectReducer({ key: 'homePage', reducer });
+    useInjectSaga({ key: 'homePage', saga });
 
-        this.state = {
-            sideDrawerOpen: false,
-            isLoadLandingPage: true,
-        };
-    }
+    const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
+    const [isLoadLandingPage, setIsLoadLandingPage] = useState(true);
+    const [brandCategory, setBrandCategory] = useState({});
 
-    componentDidMount() {
-        this.updateState();
-    }
+    useEffect(() => {
+        getCategoryBrandData();
+    }, [getCategoryBrandData]);
 
-    updateState = () => {
-        setTimeout(() => {
-            this.setState({ isLoadLandingPage: false });
-        }, 1500);
+    useEffect(() => {
+        if (!Utils.isUndefinedOrNullOrEmptyObject(homeData.brandCategoryData)) {
+            setBrandCategory(homeData.brandCategoryData);
+            setIsLoadLandingPage(false);
+        }
+    }, [homeData.brandCategoryData]);
+
+    const drawerToggleClickHandler = () => {
+        setSideDrawerOpen(prevState => ({ sideDrawerOpen: !prevState.sideDrawerOpen }));
     };
 
-    drawerToggleClickHandler = () => {
-        this.setState(prevState => ({ sideDrawerOpen: !prevState.sideDrawerOpen }));
+    const backdropClickHandler = () => {
+        setSideDrawerOpen(false);
     };
 
-    backdropClickHandler = () => {
-        this.setState({ sideDrawerOpen: false });
-    };
-
-    getLandingPage = () => (
+    const getLandingPage = () => (
         <div className="landingPageWrapper">
             <div className="logo"></div>
             <div className="logoText">
@@ -45,42 +52,40 @@ class HomePage extends Component {
         </div>
     );
 
-    backDrop = () => <div className="backdrop" onClick={this.backdropClickHandler} role="button" tabIndex={0} />;
+    const backDrop = () => <div className="backdrop" onClick={backdropClickHandler} role="button" tabIndex={0} />;
 
-    render() {
-        if (this.state.isLoadLandingPage) {
-            return this.getLandingPage();
-        }
-        return (
-            <section className="pageWrapper">
-                <Header
-                    toggleMenu={this.drawerToggleClickHandler}
-                    isCustomHeader={false}
-                    getCategoryBrandDataByRegion={this.props.getCategoryBrandDataByRegion}
-                />
-                <Sidebar show={this.state.sideDrawerOpen} />
-                <div className="contentDataWrapper">
-                    <Home />
-                </div>
-                {this.state.sideDrawerOpen && this.backDrop()}
-            </section>
-        );
+    if (isLoadLandingPage) {
+        return getLandingPage();
     }
+
+    return (
+        <section className="pageWrapper">
+            <Header toggleMenu={drawerToggleClickHandler} isCustomHeader={false} history={history} />
+            <Sidebar show={sideDrawerOpen} />
+            <div className="contentDataWrapper">
+                <Home homePageData={brandCategory} history={history} />
+            </div>
+            {sideDrawerOpen && backDrop()}
+        </section>
+    );
 }
 
 HomePage.propTypes = {
-    getCategoryBrandDataByRegion: PropTypes.func.isRequired,
+    homeData: PropTypes.object.isRequired,
+    getCategoryBrandData: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
 };
-const mapDispatchToProps = dispatch => ({
-    getCategoryBrandDataByRegion: regionId => dispatch(getDataByRegion(regionId)),
+
+const mapStateToProps = createStructuredSelector({
+    homeData: makeSetStateDetails(),
 });
+
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 const withConnect = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 );
 export default compose(
     withConnect,
     memo,
 )(HomePage);
-
-// export default HomePage;

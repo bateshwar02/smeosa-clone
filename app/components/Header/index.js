@@ -2,84 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Modal';
 import Login from '../../containers/Login';
-import City from '../../containers/City/Loadable';
+import City from '../City/Loadable';
 import './header.scss';
 
-// const location = {
-//     list_of_popular_city: [
-//         { id: '1', name: 'Delhi' },
-//         { id: '2', name: 'Gujrat' },
-//         { id: '3', name: 'Haryana' },
-//         { id: '4', name: 'Madhya Pradesh' },
-//         { id: '5', name: 'Maharashtra' },
-//     ],
-//     other_city: [
-//         { id: '6', name: 'Andaman & Nicobar Islands' },
-//         { id: '7', name: ' Andhra Pradesh' },
-//         { id: '8', name: 'Arunachal Pradesh' },
-//         { id: '9', name: 'Assam' },
-//         { id: '10', name: 'Bihar' },
-//     ],
-// };
-
-const data = {
-    data: [
-        {
-            regionId: '6620166738686251295',
-            regionName: 'Delhi',
-            isOfbOperative: true,
-            regionType: 'CITY',
-        },
-        {
-            regionId: '6620166738690445600',
-            regionName: 'Gujarat',
-            isOfbOperative: true,
-            regionType: 'CITY',
-        },
-        {
-            regionId: '6620166738690445601',
-            regionName: 'Haryana',
-            isOfbOperative: true,
-            regionType: 'CITY',
-        },
-        {
-            regionId: '6620166738690445602',
-            regionName: 'MP',
-            isOfbOperative: true,
-            regionType: 'CITY',
-        },
-        {
-            regionId: '6620166738694639907',
-            regionName: 'Maharashtra',
-            isOfbOperative: false,
-            regionType: 'CITY',
-        },
-        {
-            regionId: '6620166738862412068',
-            regionName: 'AP',
-            isOfbOperative: false,
-            regionType: 'CITY',
-        },
-        {
-            regionId: '6620166738866606373',
-            regionName: 'Assam',
-            isOfbOperative: false,
-            regionType: 'CITY',
-        },
-        {
-            regionId: '6620166738866606374',
-            regionName: 'Andaman islands',
-            isOfbOperative: false,
-            regionType: 'CITY',
-        },
-    ],
-    success: true,
-    errorMessage: null,
-    errorCode: null,
-    meta: null,
-};
-
-function Header({ toggleMenu, isCustomHeader, type, goBack, getCategoryBrandDataByRegion }) {
+function Header({ toggleMenu, isCustomHeader, type, history }) {
     const [isLogin, setLogin] = useState(false);
     const [isLocation, setLocation] = useState(false);
 
@@ -101,24 +27,7 @@ function Header({ toggleMenu, isCustomHeader, type, goBack, getCategoryBrandData
     );
 
     const getLocationFooter = () => <div></div>;
-
-    // const childData = array =>
-    //     array.map(item => (
-    //         <span className="item" key={item.id}>
-    //             {item.name}
-    //         </span>
-    //     ));
-
-    const locationData = () => <City cityData={data} getCategoryBrandDataByRegion={getCategoryBrandDataByRegion} />;
-    // Object.keys(location).map(item => (
-    //     <div className="locationWrapper">
-    //         <div className="cityType">
-    //             <span className="typeOfCity">{item.replace('_', ' ')}</span>
-    //             {childData(location[item])}
-    //         </div>
-    //     </div>
-    // ));
-
+    const locationData = () => <City setStateDate={setLocation} />;
     const detailPageHeader = () => (
         <div className="customHeaderWrap">
             <span
@@ -126,7 +35,7 @@ function Header({ toggleMenu, isCustomHeader, type, goBack, getCategoryBrandData
                 tabIndex={0}
                 className="backIcon"
                 onClick={() => {
-                    goBack();
+                    history.goBack();
                 }}
             >
                 <i className="material-icons">keyboard_backspace</i>
@@ -194,9 +103,11 @@ function Header({ toggleMenu, isCustomHeader, type, goBack, getCategoryBrandData
 Header.propTypes = {
     toggleMenu: PropTypes.func.isRequired,
     isCustomHeader: PropTypes.bool.isRequired,
-    type: PropTypes.string.isRequired,
-    goBack: PropTypes.func.isRequired,
-    getCategoryBrandDataByRegion: PropTypes.func.isRequired,
+    type: PropTypes.string,
+    history: PropTypes.object.isRequired,
+};
+Header.defaultProps = {
+    type: '',
 };
 
 export default Header;

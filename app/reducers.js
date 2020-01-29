@@ -6,6 +6,7 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import globalReducer from './containers/App/reducer';
 import todosReducer from './containers/ToDo/reducer';
+import homePageReducer from './containers/Home/reducer';
 import detailPageReducer from './containers/Details/reducer';
 
 import history from './utils/history';
@@ -16,6 +17,7 @@ import history from './utils/history';
 export default function createReducer(injectedReducers = {}) {
     const rootReducer = combineReducers({
         toDo: todosReducer,
+        homePage: homePageReducer,
         detailPage: detailPageReducer,
         pageInfo: globalReducer,
         router: connectRouter(history),

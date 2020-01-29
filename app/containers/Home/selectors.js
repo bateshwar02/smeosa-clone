@@ -18,7 +18,7 @@ const selectDetailsDomain = state => state.homePage || initialState;
 const makeSetStateDetails = () =>
     createSelector(
         selectDetailsDomain,
-        homePage => homePage,
+        ({ homeData }) => homeData || {},
     );
 
 export default makeSetStateDetails;

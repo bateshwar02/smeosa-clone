@@ -1,5 +1,16 @@
 import Request from '../../utils/request';
+import { REGIONS } from '../../utils/constants';
+
 const Service = {
+    getData() {
+        const url = `/api/v1/smeosa/categoryAndBrands`;
+        return Request.get(url);
+    },
+    getRegion() {
+        // const url = `/api/v1/smeosa/categoryAndBrandsByRegionId/${regionId}`;
+        // return Request.get(url);
+        return REGIONS;
+    },
     getDataByRegion(regionId) {
         const url = `/api/v1/smeosa/categoryAndBrandsByRegionId/${regionId}`;
         return Request.get(url);

@@ -6,6 +6,7 @@ import { compose, bindActionCreators } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import queryString from 'query-string';
 import makeSetStateDetails from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -22,11 +23,13 @@ const brandsList = [
     'https://seeklogo.com/images/J/jsw-steel-logo-82ED4A72F6-seeklogo.com.png',
 ];
 
-export function Details({ detailPage, history }) {
+export function Details({ detailPage, history, location }) {
     useInjectReducer({ key: 'detailPage', reducer });
     useInjectSaga({ key: 'detailPage', saga });
 
-    const { type } = detailPage.urlParams;
+    console.log('details page =====', detailPage);
+
+    const { type } = queryString.parse(location.search);
     const getBrandList = () =>
         brandsList.map(item => (
             <div className="brandsList" key={item}>
@@ -39,7 +42,7 @@ export function Details({ detailPage, history }) {
     const toggleMenu = () => {};
     return (
         <>
-            <Header toggleMenu={toggleMenu} isCustomHeader type={type} goBack={history.goBack} />
+            <Header toggleMenu={toggleMenu} isCustomHeader type={type} history={history} />
             <div className="pageWrapper">
                 <div className="detailsPageWrapper">
                     <div className="brandWrapper">
@@ -59,6 +62,7 @@ export function Details({ detailPage, history }) {
 Details.propTypes = {
     detailPage: PropTypes.object,
     history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
 };
 
 Details.defaultProps = {

@@ -3,7 +3,7 @@
         "url": "http://localhost:9000"
     },
     "api": {
-        "url": "https://jsonplaceholder.typicode.com"
+        "url": "http://192.168.101.205:8080"
     },
     "env": "default",
     "platform": "WEB_SITE",

@@ -1,19 +1,45 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 
 import { notifyError } from '../App/action';
-import { getDataByRegion } from './actions';
-// import makeSetStateDetails from './selectors';
-// import Utils from '../../utils/common';
-import { DATA_BY_REGION } from './constants';
+import { setHomePageData } from './actions';
+import makeSetStateDetails from './selectors';
+import Utils from '../../utils/common';
+import { DATA_BY_REGION, REGION_DATA, BRAND_CATEGORY_DATA } from './constants';
 import api from './api';
 
 function* getDataByRegionSaga({ regionId }) {
-    // const dataByRegion = yield select(makeSetStateDetails());
-
+    const homePageData = yield select(makeSetStateDetails());
     try {
-        // const dataByRegionClone = Utils.deepCopy(dataByRegion);
-        const dataByRegionClone = yield call(api.getDataByRegion, regionId);
-        yield put(getDataByRegion(dataByRegionClone));
+        const homePageDataClone = Utils.deepCopy(homePageData);
+        const apiCallDataByRegions = yield call(api.getDataByRegion, regionId);
+        homePageDataClone.brandCategoryData = apiCallDataByRegions.data;
+        yield put(setHomePageData(homePageDataClone));
+        return;
+    } catch (e) {
+        yield put(notifyError(e));
+    }
+}
+
+function* getRegionSaga() {
+    const homePageData = yield select(makeSetStateDetails());
+    try {
+        const homePageDataClone = Utils.deepCopy(homePageData);
+        const response = yield call(api.getRegion);
+        homePageDataClone.regions = response.data;
+        yield put(setHomePageData(homePageDataClone));
+        return;
+    } catch (e) {
+        yield put(notifyError(e));
+    }
+}
+function* getBrandCategoryData() {
+    const homePageData = yield select(makeSetStateDetails());
+    try {
+        const homePageDataClone = Utils.deepCopy(homePageData);
+        const response = yield call(api.getData);
+        homePageDataClone.brandCategoryData = response.data;
+        yield put(setHomePageData(homePageDataClone));
+        return;
     } catch (e) {
         yield put(notifyError(e));
     }
@@ -21,4 +47,6 @@ function* getDataByRegionSaga({ regionId }) {
 
 export default function* toDoSaga() {
     yield takeLatest(DATA_BY_REGION, getDataByRegionSaga);
+    yield takeLatest(REGION_DATA, getRegionSaga);
+    yield takeLatest(BRAND_CATEGORY_DATA, getBrandCategoryData);
 }

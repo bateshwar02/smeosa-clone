@@ -1,4 +1,5 @@
 import Utils from './common';
+import { BRAND_CATEGORY_DATA } from './constants';
 
 const BASE_URL_MAP = {
     DEFAULT: '{_apiUrl}',
@@ -78,8 +79,15 @@ const getDocHeaders = header => {
 };
 
 export default {
-    get(url, beServer, header) {
-        return request(getBaseUrl(beServer) + url, { method: 'GET', headers: getHeaders(header) });
+    // get(url, beServer, header) {
+    //     return request(getBaseUrl(beServer) + url, { method: 'GET', headers: getHeaders(header) });
+    // },
+    get() {
+        // console.log('CONSTANT =====', COMMON);
+        const data = new Promise(resolve => {
+            resolve(BRAND_CATEGORY_DATA);
+        });
+        return data;
     },
     post(url, data, beServer, contentType, header) {
         let body = data;

@@ -49,7 +49,7 @@ function Sidebar({ show }) {
 }
 
 Sidebar.propTypes = {
-    show: PropTypes.func.isRequired,
+    show: PropTypes.bool.isRequired,
 };
 
 export default Sidebar;
