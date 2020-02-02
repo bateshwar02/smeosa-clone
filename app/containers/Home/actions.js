@@ -1,4 +1,4 @@
-import { DATA_BY_REGION, SET_HOME_PAGE_DATA, REGION_DATA, BRAND_CATEGORY_DATA } from './constants';
+import { DATA_BY_REGION, SET_HOME_PAGE_DATA, REGION_DATA, BRAND_CATEGORY_DATA, SEARCH_DATA } from './constants';
 
 export function setHomePageData(homePage) {
     return {
@@ -23,5 +23,14 @@ export function getDataByRegionId(data) {
 export function getRegion() {
     return {
         type: REGION_DATA,
+    };
+}
+
+export function setSearchData(homePage, id, setIsSearch) {
+    return {
+        type: SEARCH_DATA,
+        homePage,
+        id,
+        setIsSearch,
     };
 }

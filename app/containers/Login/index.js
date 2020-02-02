@@ -1,96 +1,83 @@
-// import React, { memo, useRef, useState } from 'react';
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import t from 'tcomb-form';
+import { compose, bindActionCreators } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-// import ClassNames from 'classnames';
 import Utils from '../../utils/common';
-import smeForm from '../../components/form';
-import makeSelectLogin from './selectors';
+import { makeLoginSteps, makeSelectIsOtpSent, makeSelectProfile } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-// import login from './component/login';
+import * as Actions from './actions';
+import { STEPS } from './constants';
+import LoginPage from './component/login';
+import Register from './component/register';
 import './index.scss';
 
-export function Login({ otpForm, pageInfo }) {
-    const loginForm = useRef(null);
-
+export function Login({ step, sendOtp, isOtpSent, submitOtp, profile, submitProfile, setLogin, detailPageUrl, history }) {
     useInjectReducer({ key: 'login', reducer });
     useInjectSaga({ key: 'login', saga });
 
-    const onChange = () => {};
+    if (step === STEPS.SUBMIT) {
+        setLogin(false);
+    }
+    const [formData, setFormData] = useState({});
+    const [isProgress, setIsProgress] = useState(false);
+    const [isProgressRegister, setIsProgressRegister] = useState(false);
 
-    const getComponent = () => (
-        <div className="contentWrapper">
-            <t.form.Form ref={loginForm} type={getFormSchema()} value={otpForm} options={getFormOptions()} onChange={onChange} />
-            <div className="text">
-                {' '}
-                By signing in, you agree with our <span className="textHighLight">Terms of Use</span> and <span className="textHighLight">Privacy Policy</span>{' '}
-            </div>
-        </div>
-    );
+    const getOtp = formValue => {
+        let form = Utils.deepCopy(formData);
+        if (!Utils.isUndefinedOrNullOrEmptyObject(formValue)) {
+            form = { ...formData };
+            setFormData(form);
+            setIsProgress(true);
+            sendOtp(formValue, setIsProgress);
+        }
+    };
 
-    const getFormSchema = () => t.struct({ mobile: smeForm.refinements.mobile, otp: smeForm.refinements.validOtp });
-    const getFormOptions = () => ({
-        template: getLoginFormTemplate,
-        fields: {
-            mobile: {
-                label: 'Mobile Number',
-                template: smeForm.templates.textbox,
-                error: val => {
-                    if (Utils.isUndefinedOrNullOrEmpty(val)) {
-                        return 'Mobile number is required';
-                    }
-                    return 'Invalid mobile number ';
-                },
-                config: {
-                    addonBefore: '+91',
-                },
-                attrs: {
-                    validateRegex: /^(\d{1}){0,10}$/,
-                    autoComplete: 'new-number',
-                },
-                type: Utils.isMSite(pageInfo) ? 'number' : false,
-            },
-        },
-    });
+    const sendOtpToSubmit = data => {
+        setIsProgress(true);
+        submitOtp(data, setIsProgress, detailPageUrl, history);
+    };
 
-    const getLoginFormTemplate = locals => <div className="input-with-action">{locals.inputs.mobile}</div>;
+    const submitUserProfile = data => {
+        setIsProgressRegister(true);
+        submitProfile(data, setIsProgressRegister, detailPageUrl, history);
+    };
 
-    return <div className="loginWrapper">{getComponent()}</div>;
+    const getPageRender = () => {
+        switch (step) {
+            case STEPS.REGISTER:
+                return <Register profile={profile} submitProfile={submitUserProfile} setLogin={setLogin} isProgress={isProgressRegister} />;
+            default:
+                return <LoginPage getOtp={getOtp} step={step} isOtpSent={isOtpSent} submitOtp={sendOtpToSubmit} isProgress={isProgress} />;
+        }
+    };
+
+    return getPageRender();
 }
 
 Login.propTypes = {
-    // dispatch: PropTypes.func.isRequired,
-    pageInfo: PropTypes.object.isRequired,
-    otpForm: PropTypes.object.isRequired,
-    // isOtpSent: PropTypes.bool.isRequired,
-    // otpInProgress: PropTypes.bool.isRequired,
-    // inProgress: PropTypes.bool.isRequired,
-    // sendOtp: PropTypes.func.isRequired,
+    isOtpSent: PropTypes.bool.isRequired,
+    sendOtp: PropTypes.func.isRequired,
+    step: PropTypes.number.isRequired,
+    submitOtp: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
+    submitProfile: PropTypes.func.isRequired,
+    setLogin: PropTypes.func.isRequired,
+    detailPageUrl: PropTypes.string.isRequired,
+    history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-    login: makeSelectLogin(),
-    // pageInfo: makeSelectPageInfo(),
-    // inProgress: makeSelectInProgress(),
-    // isSubmitted: makeSelectIsSubmitted(),
-    // isOtpSent: makeSelectIsOtpSent(),
-    // otpInProgress: makeSelectOtpInProgress(),
-    // otpForm: makeSelectOtpForm(),
+    step: makeLoginSteps(),
+    isOtpSent: makeSelectIsOtpSent(),
+    profile: makeSelectProfile(),
 });
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatch,
-    };
-}
-
+const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);
 const withConnect = connect(
     mapStateToProps,
     mapDispatchToProps,

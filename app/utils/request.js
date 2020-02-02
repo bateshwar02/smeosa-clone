@@ -1,5 +1,5 @@
+import cookie from 'cookies-js';
 import Utils from './common';
-import { BRAND_CATEGORY_DATA } from './constants';
 
 const BASE_URL_MAP = {
     DEFAULT: '{_apiUrl}',
@@ -60,8 +60,9 @@ export function request(url, options) {
 }
 
 const getHeaders = (header, contentType) => {
-    let headers = {};
-    headers['X-REFERRER-DOMAIN'] = '{_domain}';
+    let headers = { 'X-OFB-TOKEN': cookie.get('auth-token') };
+    headers['X-OFB-IP'] = '61.12.79.178';
+    // headers['X-REFERRER-DOMAIN'] = '{_domain}';
     if (header) {
         headers = Object.assign(headers, header);
     }
@@ -79,15 +80,15 @@ const getDocHeaders = header => {
 };
 
 export default {
-    // get(url, beServer, header) {
-    //     return request(getBaseUrl(beServer) + url, { method: 'GET', headers: getHeaders(header) });
-    // },
-    get() {
-        // console.log('CONSTANT =====', COMMON);
-        const data = new Promise(resolve => {
-            resolve(BRAND_CATEGORY_DATA);
-        });
-        return data;
+    getDefault(url, beServer, header) {
+        return request(getBaseUrl(beServer) + url, { method: 'GET', headers: getHeaders(header) });
+    },
+    get(url, beServer, header) {
+        // const data = new Promise(resolve => {
+        //     resolve(BRAND_CATEGORY_DATA);
+        // });
+        // return data;
+        return request(getBaseUrl(beServer) + url, { method: 'GET', headers: getHeaders(header) });
     },
     post(url, data, beServer, contentType, header) {
         let body = data;

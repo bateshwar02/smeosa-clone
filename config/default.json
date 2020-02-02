@@ -3,7 +3,8 @@
         "url": "http://localhost:9000"
     },
     "api": {
-        "url": "http://192.168.101.205:8080"
+        // "url": "http://192.168.101.217:8080"
+        "url": "http://stg1-api.ofbusiness.in"
     },
     "env": "default",
     "platform": "WEB_SITE",

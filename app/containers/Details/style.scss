@@ -1,7 +1,9 @@
 .detailsPageWrapper::-webkit-scrollbar {
     display: none;
 }
-.detailsPageWrapper{position: fixed; display: flex; top: 60px; margin: 20px 16px; width: 90%; overflow-x: auto;-ms-overflow-style: none;
+ .detailsWrapper{margin: 154px 16px 10px 16px;}
+ .defaultWrapper{margin: 80px 16px 10px 16px;}
+.detailsPageWrapper{ /*position: fixed;top: 60px; margin: 20px 16px;*/  display: flex; width: 90%; overflow-x: auto;-ms-overflow-style: none; margin-bottom: 10px;
     .brandWrapper{
         display: grid;
         grid-auto-flow: column; 
@@ -25,19 +27,24 @@
         background: #ffffff;
         border-radius: 3px;
         display: flex;
+        flex-direction: column;
         justify-content: space-around;
         align-content: center;
         text-align: center;
         align-items: center;
        .brandIcon{ img{height:44px; width: 44px;}}
+       .brandImage{ img {height: 34px; width: 66px;}}
+       .name {font-size: 11px; color: #7101cd;}
     }
 }
-.detailPageContainWrapper{ margin: 150px 16px 10px 16px;
-    .listWrapper{ background: #ffffff; display: grid; 
-         grid-auto-flow: row;
-         border: 1px solid #d8dde6;
-         border-radius: 2px;
-         box-shadow: 0 1px 1px 0 rgba(99,99,99,.2);
+.detailPageContainWrapper{ /* margin: 145px 16px 10px 16px;*/
+    .listWrapper{ background: #ffffff;
+        display: grid;
+        grid-auto-flow: row;
+        border: 1px solid #f3f5f9;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px 0 rgba(99, 99, 99, 0.2);
+        margin-bottom: 10px;
          .headerName{ padding: 14px 12px;
             font-size: 16px;
             font-weight: 600;

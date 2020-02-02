@@ -54,6 +54,7 @@ export default {
         percentage: t.refinement(t.Str, s => !Utils.isUndefinedOrNullOrEmpty(s) && Regex.percentage.test(s)),
         turnover: t.refinement(t.Str, s => Regex.turnover.test(s)),
         validOtp: t.refinement(t.Str, s => Regex.otp.test(s)),
+        name: t.refinement(t.Str, s => Regex.name.test(s)),
     },
 
     helper: {

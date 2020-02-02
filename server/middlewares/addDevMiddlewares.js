@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 
 const PropyMiddleware = require('./propyMiddleware');
 const InitHeadersMiddleware = require('./initHeadersMiddleware');
-const ToDoMiddleware = require('./todoMiddleware');
 
 function createWebpackMiddleware(compiler, publicPath) {
     return webpackDevMiddleware(compiler, {
@@ -33,9 +32,6 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
 
     app.use(PropyMiddleware);
     app.use(InitHeadersMiddleware);
-
-    // ToDo example middleware
-    app.use(ToDoMiddleware);
 
     // Since webpackDevMiddleware uses memory-fs internally to store build
     // artifacts, we use it instead

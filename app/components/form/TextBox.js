@@ -130,6 +130,7 @@ function create(overrides = {}) {
             attrs.className = classnames(attrs.className);
             attrs.className += `${attrs.className ? ' ' : ''}form-control`;
             attrs.disabled = locals.disabled;
+            attrs.autoComplete = 'off';
             if (locals.type !== 'file') {
                 attrs.value = locals.value;
             }

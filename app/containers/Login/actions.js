@@ -1,13 +1,49 @@
-/*
- *
- * Login actions
- *
- */
+import { GET_OTP, SUBMIT_OTP, UPDATE_STATUS, UPDATE_PROFILE, SUBMIT_PROFILE, LOGOUT } from './constants';
 
-import { DEFAULT_ACTION } from './constants';
-
-export function defaultAction() {
+export function sendOtp(formData, setIsProgress) {
     return {
-        type: DEFAULT_ACTION,
+        type: GET_OTP,
+        formData,
+        setIsProgress,
+    };
+}
+
+export function submitOtp(formData, setIsProgress, detailPageUrl, history) {
+    return {
+        type: SUBMIT_OTP,
+        formData,
+        setIsProgress,
+        detailPageUrl,
+        history,
+    };
+}
+
+export function updateStatus({ step }) {
+    return {
+        type: UPDATE_STATUS,
+        step,
+    };
+}
+
+export function updateProfile(profile) {
+    return {
+        type: UPDATE_PROFILE,
+        profile,
+    };
+}
+
+export function submitProfile(formData, setIsProgress, detailPageUrl, history) {
+    return {
+        type: SUBMIT_PROFILE,
+        formData,
+        setIsProgress,
+        detailPageUrl,
+        history,
+    };
+}
+
+export function logout() {
+    return {
+        type: LOGOUT,
     };
 }

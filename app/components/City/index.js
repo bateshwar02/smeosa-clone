@@ -15,7 +15,7 @@ import reducer from '../../containers/Home/reducer';
 import saga from '../../containers/Home/saga';
 import './index.scss';
 
-export function City({ homeData, getDataByRegionId, getRegion, setStateDate }) {
+export function City({ homeData, getDataByRegionId, setStateDate }) {
     useInjectReducer({ key: 'homePage', reducer });
     useInjectSaga({ key: 'homePage', saga });
 
@@ -23,10 +23,6 @@ export function City({ homeData, getDataByRegionId, getRegion, setStateDate }) {
     const [cityFormValue, setFormValue] = useState({});
     const [cityOptionData, setPopularCityOption] = useState([]);
     const emptyRegionData = Utils.isUndefinedOrNullOrEmptyObject(cityOptionData);
-
-    useEffect(() => {
-        getRegion();
-    }, [getRegion]);
 
     useEffect(() => {
         if (!Utils.isUndefinedOrNullOrEmptyList(homeData.regions)) {
@@ -48,7 +44,7 @@ export function City({ homeData, getDataByRegionId, getRegion, setStateDate }) {
             getDataByRegionId(formValue.popularCity[0]);
             setStateDate(false);
         }
-        if (!Utils.isUndefinedOrNullOrEmptyList(formValue.otherCity[0])) {
+        if (!Utils.isUndefinedOrNullOrEmptyList(formValue.otherCity)) {
             getDataByRegionId(formValue.popularCity[0]);
             setStateDate(false);
         }
@@ -119,7 +115,7 @@ export function City({ homeData, getDataByRegionId, getRegion, setStateDate }) {
 
     const cityFormTemplate = locals => (
         <>
-            <div className="searchWrapper">
+            <div className="citySearchWrapper">
                 <span className="searchFrom">{locals.inputs.search}</span>
             </div>
             <div className="cityContainer">
@@ -138,7 +134,6 @@ export function City({ homeData, getDataByRegionId, getRegion, setStateDate }) {
 City.propTypes = {
     homeData: PropTypes.object.isRequired,
     getDataByRegionId: PropTypes.func.isRequired,
-    getRegion: PropTypes.func.isRequired,
     setStateDate: PropTypes.func.isRequired,
 };
 

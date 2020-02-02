@@ -1,11 +1,25 @@
+import cookie from 'cookies-js';
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
+export const HOME_PAGE_LOGO = 'http://ofbpublic.s3.amazonaws.com/smeosa/icon/LOGO_ICON.png';
+export const LANDING_PAGE_LOGO = 'http://ofbpublic.s3.amazonaws.com/smeosa/icon/Logo_png.png';
+export const NOTIFICATION = 'http://ofbpublic.s3.amazonaws.com/smeosa/icon/Bell_icon.svg';
+export const ICON_URL = 'http://ofbpublic.s3.amazonaws.com/smeosa/icon/';
+export const authToken = cookie.get('auth-token');
 
 export const COMMON = {
     PLATFORM: {
         WEB_SITE: 'WEB_SITE',
         M_SITE: 'M_SITE',
+    },
+    DETAILS_TYPE: {
+        CATEGORY: 'category',
+        BRAND: 'brand',
+    },
+    DETAILS_FILTER: {
+        CATEGORY: 'Brand',
+        BRAND: 'Category',
     },
 };
 

@@ -16,11 +16,15 @@
   }
 }
 .landingPageWrapper{
-   display: flex;justify-content: center;text-align: center;align-items: center;
+   display: flex; flex-direction: column; justify-content: space-between;text-align: center;align-items: center;
    height: 100%; width: 100%; left: 0; top: 0; overflow: hidden; position: fixed;
     background: linear-gradient(to bottom, #07003b 10%, #07003b 20%, #07003b 80%, #000000 100%);
+    .logo {margin: 195px 0px 0px 0px;}
     .logoText{ color: #ffffff; font-size: 26px; font-weight: 600; margin: 0px 65px 125px 0px;
       .text{ font-size: 18px; display: flex; justify-content: flex-start; margin-left: 88px; font-style: italic; text-transform: uppercase;
       }
+    }
+    .footer{ width:100%;
+      .footerImage{img {width:100%;}}
     }
 }

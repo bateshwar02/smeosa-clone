@@ -1,45 +1,63 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Rupees from '../../../icons/IconRupee';
+import { COMMON } from '../../../utils/constants';
 
-const data = [
-    { unit: '6 MM', rate: '35000', id: '1' },
-    { unit: '10 MM', rate: '70000', id: '2' },
-    { unit: '16 MM', rate: '100000', id: '3' },
-    { unit: '26 MM', rate: '105000', id: '4' },
-    { unit: '36 MM', rate: '205000', id: '5' },
-    { unit: '46 MM', rate: '305000', id: '6' },
-];
-function DetailsPage({ type }) {
-    const getDetailsDate = () =>
-        data.map(item => (
-            <div className="content" key={item.id}>
-                <span className="unitWrap">{item.unit}</span>
+function DetailsPage({ type, detailsData }) {
+    const getCategoryChildData = categoryChildData =>
+        categoryChildData.map(item => (
+            <div className="content" key={item.productId}>
+                <span className="unitWrap">{item.productName}</span>
                 <span className="priceWrap">
                     <Rupees />
-                    {item.rate}
+                    {item.productPrice}
                 </span>
             </div>
         ));
 
-    return (
-        <div className="detailPageContainWrapper">
+    const getCategoryDetail = categoryData => {
+        const { brandProductPriceMap, brandMap } = categoryData;
+        return Object.keys(brandProductPriceMap).map(val => (
             <div className="listWrapper">
-                <span className="headerName">{type}</span>
+                <span className="headerName">{brandMap[val].brandName}</span>
                 <div className="contentWrapper">
                     <div className="header">
                         <span className="section">Section</span>
                         <span className="unit">Per MT</span>
                     </div>
-                    {getDetailsDate()}
+                    {getCategoryChildData(brandProductPriceMap[val])}
                 </div>
             </div>
+        ));
+    };
+
+    const getBrandDetails = brandDetails => {
+        const { productCateoryProductPriceMap, productCategoryMap } = brandDetails;
+        return Object.keys(productCateoryProductPriceMap).map(val => (
+            <div className="listWrapper">
+                <span className="headerName">{productCategoryMap[val].brandName}</span>
+                <div className="contentWrapper">
+                    <div className="header">
+                        <span className="section">Section</span>
+                        <span className="unit">Per MT</span>
+                    </div>
+                    {getCategoryChildData(productCateoryProductPriceMap[val])}
+                </div>
+            </div>
+        ));
+    };
+
+    return (
+        <div className="detailPageContainWrapper">
+            {type === COMMON.DETAILS_TYPE.CATEGORY && getCategoryDetail(detailsData.categoryDetails)}
+            {type === COMMON.DETAILS_TYPE.BRAND && getBrandDetails(detailsData.brandDetails)}
         </div>
     );
 }
 
 DetailsPage.propTypes = {
     type: PropTypes.string.isRequired,
+    detailsData: PropTypes.object.isRequired,
 };
 
 export default memo(DetailsPage);

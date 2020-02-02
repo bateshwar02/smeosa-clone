@@ -1,5 +1,10 @@
+button.btn.resendOtp { color: #691dd3; }
 .contentWrapper{
     .text{ font-size:12px; color:#222222;margin-top: 30px;
         .textHighLight{font-weight: 600; color:#691dd3}         
     }
+     .otpText{font-size:12px; color:#222222;}
+    .resendOtp {color: #691dd3; font-weight: 400; background: rgba(179, 179, 179, 0.05);}
 }
+.getOtpWrapper { background: #691dd3; width:90%; min-height: 35px; display: flex; justify-content: center; align-items: center;
+    color: #ffffff; font-size: 14px; font-weight: 600; position: absolute;  bottom: 10px;}

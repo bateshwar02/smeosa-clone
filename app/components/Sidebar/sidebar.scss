@@ -16,6 +16,7 @@
               background: linear-gradient(to right,  #6a3bc9 1%,#1589ee 95%);
               display: flex; flex-direction: column; padding: 5px 10px; box-shadow: 0 2px 4px 0 rgba(99, 99, 99, 0.2); height: 110px;
               .edit{ font-size: 14px; font-weight: 600;color: #ffffff; font-style: unset; float: right; margin-left: auto; margin-right:6px; }
+              .profileIcon {img{height: 40px; width: 40px;}}
               .profileName {margin: 8px 0px; font-size: 16px; font-weight: 600; color: #ffffff;}
               }
   }
@@ -30,12 +31,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 0px;
 }
 
 .side-drawer li {
-  margin: auto 0px; padding: 15px; line-height: 25px; border-bottom: 1px solid #f4f6fc; 
+  margin: auto 0px; padding: 15px; line-height: 25px; border-bottom: 1px solid #f4f6fc; display: flex; flex-direction: row;
+  .text {padding-left: 10px;}
 }
-.side-drawer li span {font-size: 14px; color: #16325c; font-weight: 600;}
+.side-drawer li span {font-size: 14px; color: #16325c; font-weight: 600;  
+   img {height: 26px; width: 26px;}
+}
 
 .side-drawer a {
   color: #521751;

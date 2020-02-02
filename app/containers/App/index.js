@@ -4,7 +4,6 @@ import { compose, bindActionCreators } from 'redux';
 import { Route, Switch } from 'react-router-dom';
 
 import * as Actions from './action';
-import ToDos from '../ToDo/Loadable';
 import Login from '../Login/Loadable';
 import Home from '../Home/Loadable';
 import NotFoundPage from '../NotFoundPage/Loadable';
@@ -17,7 +16,6 @@ export function App() {
             <Notification />
             <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/todo" component={ToDos} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/details" component={Details} />
                 <Route component={NotFoundPage} />
