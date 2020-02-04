@@ -27,7 +27,7 @@ const makeSelectIsLoggedIn = () =>
 const makeSelectAccountDetails = () =>
     createSelector(
         selectLoginDetails,
-        ({ minAccountDto }) => minAccountDto,
+        ({ account }) => account || {},
     );
 
 const makeSelectUnseenNotificationCount = () =>

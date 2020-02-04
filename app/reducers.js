@@ -20,6 +20,7 @@ export default function createReducer(injectedReducers = {}) {
         detailPage: detailPageReducer,
         login: LoginReducer,
         pageInfo: globalReducer,
+        loginDetails: globalReducer,
         router: connectRouter(history),
         ...injectedReducers,
     });

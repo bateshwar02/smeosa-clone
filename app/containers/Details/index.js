@@ -34,7 +34,7 @@ export function Details({ detailsData, history, location, getCategoryDetails, ge
             getCategoryDetails(regionId, typeId, setIsProcessing);
         }
         if (type === COMMON.DETAILS_TYPE.BRAND) {
-            getBrandDetails(regionId, typeId);
+            getBrandDetails(regionId, typeId, setIsProcessing);
         }
     }, [getBrandDetails, getCategoryDetails, regionId, type, typeId]);
 
@@ -70,7 +70,7 @@ export function Details({ detailsData, history, location, getCategoryDetails, ge
         setIsActive(id);
     };
 
-    const getDataByCategory = id => {
+    const getCategoryWiseData = id => {
         setIsProcessing(true);
         const arr = [];
         const customObject = {};
@@ -99,7 +99,7 @@ export function Details({ detailsData, history, location, getCategoryDetails, ge
                         role="button"
                         tabIndex={0}
                         onClick={() => {
-                            getDataByCategory(item);
+                            getCategoryWiseData(item);
                         }}
                     >
                         <span className="brandIcon">

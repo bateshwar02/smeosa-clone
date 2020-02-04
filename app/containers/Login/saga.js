@@ -5,6 +5,7 @@ import { STEPS, GET_OTP, SUBMIT_OTP, SUBMIT_PROFILE, LOGOUT } from './constants'
 import { updateStatus, updateProfile } from './actions';
 import api from './api';
 import Utils from '../../utils/common';
+import Navigation from '../../utils/navigation';
 
 function* getOtpSaga({ formData, setIsProgress }) {
     try {
@@ -18,10 +19,11 @@ function* getOtpSaga({ formData, setIsProgress }) {
     } catch (e) {
         updateStatus({ step: STEPS.LOGIN });
         yield put(notifyError(e));
+        setIsProgress(false);
     }
 }
 
-function* submitOtpSaga({ formData, setIsProgress, detailPageUrl, history }) {
+function* submitOtpSaga({ formData, setIsProgress, detailPageUrl }) {
     try {
         const otpCall = yield call(api.verifyOtp, formData);
         if (otpCall.success) {
@@ -29,8 +31,8 @@ function* submitOtpSaga({ formData, setIsProgress, detailPageUrl, history }) {
             profile.step = STEPS.REGISTER;
             profile.token = otpCall.data.token;
             profile.account = otpCall.data.minAccountDto;
-            if (!Utils.isUndefinedOrNullOrEmptyObject(otpCall.data.minAccountDto)) {
-                yield call(api.setCredential, otpCall.data.token, otpCall.data.minAccountDto.accountId);
+            if (!Utils.isUndefinedOrNullOrEmptyObject(otpCall.data.minOrganisationInfoSet)) {
+                yield call(api.setCredential, otpCall.data.token, otpCall.data.minOrganisationInfoSet[0].organisationId);
             }
             setIsProgress(false);
             if (Utils.isUndefinedOrNullOrEmptyList(otpCall.data.minOrganisationInfoSet)) {
@@ -41,30 +43,42 @@ function* submitOtpSaga({ formData, setIsProgress, detailPageUrl, history }) {
             yield put(updateStatus({ step: STEPS.SUBMIT }));
             yield put(updateProfile(profile));
             if (!Utils.isUndefinedOrNullOrEmpty(detailPageUrl)) {
-                history.push(detailPageUrl);
+                window.location = detailPageUrl;
+                return;
+                // history.push(detailPageUrl);
             }
+            window.location = Navigation.home;
         }
         return;
     } catch (e) {
         updateStatus({ step: STEPS.LOGIN });
+        setIsProgress(false);
         yield put(notifyError(e));
     }
 }
 
-function* submitProfileSaga({ formData, setIsProgress, detailPageUrl, history }) {
+function* submitProfileSaga({ formData, setIsProgress, detailPageUrl }) {
     try {
-        const otpCall = yield call(api.submitProfile, formData);
+        const formCopy = Utils.deepCopy(formData);
+        const otpCall = yield call(api.submitProfile, formCopy);
         if (otpCall.success) {
             yield put(updateStatus({ step: STEPS.SUBMIT }));
             notifySuccess(otpCall.data);
-            if (!Utils.isUndefinedOrNullOrEmpty(detailPageUrl)) {
-                history.push(detailPageUrl);
+            if (!Utils.isUndefinedOrNullOrEmptyObject(otpCall.data.minOrganisationInfo)) {
+                yield call(api.setCredential, formCopy.token, otpCall.data.minOrganisationInfo.organisationId);
             }
+            if (!Utils.isUndefinedOrNullOrEmpty(detailPageUrl)) {
+                window.location = detailPageUrl;
+                return;
+                // history.push(detailPageUrl);
+            }
+            window.location = Navigation.home;
             setIsProgress(false);
         }
         return;
     } catch (e) {
         updateStatus({ step: STEPS.LOGIN });
+        setIsProgress(false);
         yield put(notifyError(e));
     }
 }

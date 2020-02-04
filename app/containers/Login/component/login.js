@@ -6,22 +6,12 @@ import Utils from '../../../utils/common';
 import { STEPS } from '../constants';
 import Loader from '../../../components/Loader/Loadable';
 
-export function Login({ getOtp, submitOtp, step, isOtpSent, isProgress }) {
+export function Login({ getOtp, submitOtp, step, isProgress }) {
     const loginForm = useRef(null);
     const [mobileForm, setMobileForm] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const [showOtp, setShowOtp] = useState(false);
 
     const onChange = formValue => {
-        if (!Utils.isUndefinedOrNullOrEmptyObject(formValue.mobile) && Utils.isUndefinedOrNullOrEmptyObject(formValue.otp)) {
-            loginForm.current.validate();
-            const { errors } = loginForm.current.validate();
-            if (Utils.isEmptyList(errors)) {
-                sendOtp(formValue);
-                setMobileForm(formValue);
-                return;
-            }
-        }
         if (isSubmitted) {
             loginForm.current.validate();
         }
@@ -35,32 +25,45 @@ export function Login({ getOtp, submitOtp, step, isOtpSent, isProgress }) {
     };
 
     const submit = () => {
-        setIsSubmitted(true);
         const { errors } = loginForm.current.validate();
         if (!Utils.isEmptyList(errors)) {
             return;
         }
+        setIsSubmitted(true);
+        if (step === STEPS.VERIFY) {
+            const otpFormData = Utils.deepCopy(mobileForm);
+            otpFormData.profiles = {
+                SMEOSAUSER: {
+                    type: 'smeosauser',
+                },
+            };
+            otpFormData.businessEntities = ['SMEOSA'];
+            submitOtp(otpFormData);
+            return;
+        }
         const otpFormData = Utils.deepCopy(mobileForm);
-        otpFormData.profiles = {
-            SMEOSAUSER: {
-                type: 'smeosauser',
-            },
-        };
-        otpFormData.businessEntities = ['SMEOSA'];
-        submitOtp(otpFormData);
+        otpFormData.businessEntity = 'SMEOSA';
+        getOtp(otpFormData);
+    };
+
+    const isOtpFieldShow = () => {
+        if (step === STEPS.VERIFY && !Utils.isUndefinedOrNullOrEmpty(mobileForm.mobile) && mobileForm.mobile.length === 10) {
+            return true;
+        }
+        return false;
     };
 
     const getComponent = () => (
         <div className="contentWrapper">
             <t.form.Form ref={loginForm} type={getFormSchema()} value={mobileForm} options={getFormOptions()} onChange={onChange} />
-            {step === STEPS.LOGIN && (
+            {!isOtpFieldShow() && (
                 <div className="text">
                     {' '}
                     By signing in, you agree with our <span className="textHighLight">Terms of Use</span> and{' '}
                     <span className="textHighLight">Privacy Policy</span>{' '}
                 </div>
             )}
-            {step === STEPS.VERIFY && (
+            {isOtpFieldShow() && (
                 <div className="otpText">
                     {' '}
                     Auto-verifying the OTP sent on +91 xxxxxxx
@@ -71,7 +74,7 @@ export function Login({ getOtp, submitOtp, step, isOtpSent, isProgress }) {
     );
 
     const formSchema = { mobile: smeForm.refinements.mobile };
-    if (step === 1) {
+    if (step === STEPS.VERIFY && !Utils.isUndefinedOrNullOrEmptyObject(mobileForm.mobile) && mobileForm.mobile.length === 10) {
         formSchema.otp = smeForm.refinements.validOtp;
     }
 
@@ -82,7 +85,7 @@ export function Login({ getOtp, submitOtp, step, isOtpSent, isProgress }) {
             mobile: {
                 label: 'Mobile Number',
                 template: smeForm.templates.textbox,
-                disabled: STEPS.LOGIN,
+                disabled: isOtpFieldShow(),
                 error: val => {
                     if (Utils.isUndefinedOrNullOrEmpty(val)) {
                         return 'Mobile number is required';
@@ -120,23 +123,17 @@ export function Login({ getOtp, submitOtp, step, isOtpSent, isProgress }) {
         },
     });
 
-    const getShowOtpBtn = () => {
-        if (!isOtpSent) {
-            return null;
-        }
-        return (
-            <button
-                type="button"
-                onClick={() => {
-                    setShowOtp(!showOtp);
-                }}
-                className="btn resendOtp"
-            >
-                Resend Otp
-            </button>
-        );
-    };
-
+    const getShowOtpBtn = () => (
+        <button
+            type="button"
+            onClick={() => {
+                sendOtp(mobileForm);
+            }}
+            className="btn resendOtp"
+        >
+            Resend Otp
+        </button>
+    );
     const getLoginFormTemplate = locals => (
         <>
             <div className="input-with-action">{locals.inputs.mobile}</div>
@@ -147,11 +144,9 @@ export function Login({ getOtp, submitOtp, step, isOtpSent, isProgress }) {
     return (
         <div className="loginWrapper">
             {getComponent()}
-            {(step === 1 || isOtpSent) && (
-                <div className="getOtpWrapper" onClick={submit} role="button" tabIndex={0}>
-                    <span className="sendOtp"> get OTP </span>
-                </div>
-            )}
+            <div className="getOtpWrapper" onClick={submit} role="button" tabIndex={0}>
+                <span className="sendOtp">{isOtpFieldShow() ? 'Submit OTP' : 'Get OTP'} </span>
+            </div>
             {isProgress && <Loader />}
         </div>
     );
@@ -161,7 +156,6 @@ Login.propTypes = {
     getOtp: PropTypes.func.isRequired,
     submitOtp: PropTypes.func.isRequired,
     step: PropTypes.number.isRequired,
-    isOtpSent: PropTypes.bool.isRequired,
     isProgress: PropTypes.bool.isRequired,
 };
 export default Login;

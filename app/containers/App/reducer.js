@@ -8,7 +8,7 @@
  */
 
 import produce from 'immer';
-import { PAGE_INFO } from './constants';
+import { PAGE_INFO, IS_LOGIN_INFO } from './constants';
 
 // The initial state of the App
 export const initialState = {};
@@ -19,6 +19,9 @@ const appReducer = (state = initialState, action) =>
         switch (action.type) {
             case PAGE_INFO:
                 draft.pageInfo = action.pageInfo;
+                break;
+            case IS_LOGIN_INFO:
+                draft.loginDetails = action.loginDetails;
                 break;
         }
     });

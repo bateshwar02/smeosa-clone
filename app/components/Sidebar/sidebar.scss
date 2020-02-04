@@ -1,7 +1,6 @@
 .side-drawer {
   height: 100%;
   background: white;
-  // box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
@@ -14,11 +13,14 @@
   .userProfile { background: #1589ee; background: -moz-linear-gradient(left,  #6a3bc9 9%, #1589ee 90%); 
               background: -webkit-linear-gradient(left,  #6a3bc9 9%,#1589ee 90%); 
               background: linear-gradient(to right,  #6a3bc9 1%,#1589ee 95%);
-              display: flex; flex-direction: column; padding: 5px 10px; box-shadow: 0 2px 4px 0 rgba(99, 99, 99, 0.2); height: 110px;
+              display: flex; flex-direction: row; justify-content: space-between; padding:10px; box-shadow: 0 2px 4px 0 rgba(99, 99, 99, 0.2); height: 110px;
               .edit{ font-size: 14px; font-weight: 600;color: #ffffff; font-style: unset; float: right; margin-left: auto; margin-right:6px; }
-              .profileIcon {img{height: 40px; width: 40px;}}
-              .profileName {margin: 8px 0px; font-size: 16px; font-weight: 600; color: #ffffff;}
+              .userDetails{ display: flex; flex-direction: column; 
+                .profileIcon {img{height: 40px; width: 40px;}}
+                .profileName {margin: 18px 0px; font-size: 16px; font-weight: 600; color: #ffffff;}
               }
+               .leftWrapper { display: flex; margin-left: auto; background: #07003b; height: 32px; width: 70px; border-radius: 2px; justify-content: center; align-items: center; text-align: center; color: #ffffff; padding: 5px 0px; }  
+            }
   }
 
 .side-drawer.open {

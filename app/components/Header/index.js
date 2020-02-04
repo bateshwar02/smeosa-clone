@@ -4,16 +4,16 @@ import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import Utils from '../../utils/common';
-import makeSetStateDetails from '../../containers/Home/selectors';
-import * as Actions from '../../containers/Home/actions';
+import { makeSelectAccountDetails } from '../../containers/App/selectors';
+import * as Actions from '../../containers/App/action';
 import Modal from '../Modal';
 import Login from '../../containers/Login';
 import City from '../City/Loadable';
 import Search from '../Search/Loadable';
-import { authToken, HOME_PAGE_LOGO, NOTIFICATION } from '../../utils/constants';
+import { HOME_PAGE_LOGO, NOTIFICATION } from '../../utils/constants';
 import './header.scss';
 
-function Header({ toggleMenu, isCustomHeader, type, history, homeData, defaultCity, brandImg, isLogin, setLogin, detailPageUrl }) {
+function Header({ userAccount, region, toggleMenu, isCustomHeader, type, history, homeData, defaultCity, brandImg, isLogin, setLogin, detailPageUrl }) {
     const [isSearch, setIsSearch] = useState(false);
     const [isLocation, setLocation] = useState(false);
 
@@ -30,7 +30,7 @@ function Header({ toggleMenu, isCustomHeader, type, history, homeData, defaultCi
         setLocation(true);
     };
     const getLocationFooter = () => <div></div>;
-    const locationData = () => <City setStateDate={setLocation} />;
+    const locationData = () => <City setStateDate={setLocation} region={region} />;
 
     const detailPageHeader = () => (
         <div className="detailPageHeader">
@@ -46,12 +46,12 @@ function Header({ toggleMenu, isCustomHeader, type, history, homeData, defaultCi
                     <i className="material-icons">keyboard_backspace</i>
                 </span>
                 <span className="header">
-                    {type} In {defaultCity}
+                    {type} Prices In {defaultCity}
                 </span>
             </div>
             {!Utils.isUndefinedOrNullOrEmpty(brandImg) && (
                 <div className="brandHeaderWrap">
-                    <span className="brandImage">
+                    <span className="selectedBrandImage">
                         <img src={brandImg} alt="" />
                     </span>
                 </div>
@@ -80,7 +80,7 @@ function Header({ toggleMenu, isCustomHeader, type, history, homeData, defaultCi
     const notification = () => {};
 
     const getSignInNotification = () => {
-        if (!Utils.isUndefinedOrNullOrEmpty(authToken)) {
+        if (!Utils.isUndefinedOrNullOrEmptyObject(userAccount)) {
             return (
                 <div className="bellWrapper" onClick={notification} role="button" tabIndex={0}>
                     <span>
@@ -139,7 +139,6 @@ function Header({ toggleMenu, isCustomHeader, type, history, homeData, defaultCi
 
     return (
         <header className="toolbar">
-            <div className="blank"></div>
             {getChildComponent()}
             {isLogin && (
                 <Modal
@@ -154,7 +153,7 @@ function Header({ toggleMenu, isCustomHeader, type, history, homeData, defaultCi
                     modalClass="regionModal"
                     onCancel={closeModal}
                     modalHeader="Select Location"
-                    modalContent={!Utils.isUndefinedOrNullOrEmptyList(homeData.regions) && locationData()}
+                    modalContent={!Utils.isUndefinedOrNullOrEmptyList(region) && locationData()}
                     modalFooter={getLocationFooter()}
                 />
             )}
@@ -182,6 +181,8 @@ Header.propTypes = {
     isLogin: PropTypes.bool,
     setLogin: PropTypes.func,
     detailPageUrl: PropTypes.string,
+    region: PropTypes.array.isRequired,
+    userAccount: PropTypes.object.isRequired,
 };
 Header.defaultProps = {
     type: '',
@@ -192,7 +193,7 @@ Header.defaultProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
-    homeData: makeSetStateDetails(),
+    userAccount: makeSelectAccountDetails(),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(Actions, dispatch);

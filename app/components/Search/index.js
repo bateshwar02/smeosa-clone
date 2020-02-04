@@ -19,6 +19,12 @@ function Search({ homePage, setIsSearch, setSearchData }) {
 
     const { brandCategoryData } = homePage;
 
+    const getOptionName = (name, type) => (
+        <div className="customOption">
+            <span className="text">{name}</span> <span className="type"> {type} </span>
+        </div>
+    );
+
     const onChange = formValue => {
         const options = [];
         let activeOption = false;
@@ -26,15 +32,6 @@ function Search({ homePage, setIsSearch, setSearchData }) {
             if (formValue.searchData.length > 0) {
                 const suggestions = [];
                 const input = formValue.searchData;
-                if (!Utils.isUndefinedOrNullOrEmptyList(brandCategoryData) && !Utils.isUndefinedOrNullOrEmptyList(brandCategoryData.smeosaBrandsDtoList)) {
-                    const clientData = brandCategoryData.smeosaBrandsDtoList
-                        .filter(item => item.brandName.toUpperCase().includes(input.toUpperCase()))
-                        .map(r => ({
-                            customKey: `smeosaBrandsDtoList-${r.brandId}`,
-                            name: r.brandName,
-                        }));
-                    suggestions.push(...clientData);
-                }
                 if (
                     !Utils.isUndefinedOrNullOrEmptyList(brandCategoryData) &&
                     !Utils.isUndefinedOrNullOrEmptyList(brandCategoryData.smeosaProductCategoryDtoList)
@@ -43,7 +40,16 @@ function Search({ homePage, setIsSearch, setSearchData }) {
                         .filter(item => item.productCategoryName.toUpperCase().includes(input.toUpperCase()))
                         .map(r => ({
                             customKey: `smeosaProductCategoryDtoList-${r.productCategoryId}`,
-                            name: r.productCategoryName,
+                            name: getOptionName(r.productCategoryName, 'Category'),
+                        }));
+                    suggestions.push(...clientData);
+                }
+                if (!Utils.isUndefinedOrNullOrEmptyList(brandCategoryData) && !Utils.isUndefinedOrNullOrEmptyList(brandCategoryData.smeosaBrandsDtoList)) {
+                    const clientData = brandCategoryData.smeosaBrandsDtoList
+                        .filter(item => item.brandName.toUpperCase().includes(input.toUpperCase()))
+                        .map(r => ({
+                            customKey: `smeosaBrandsDtoList-${r.brandId}`,
+                            name: getOptionName(r.brandName, 'Brand'),
                         }));
                     suggestions.push(...clientData);
                 }
@@ -107,13 +113,13 @@ function Search({ homePage, setIsSearch, setSearchData }) {
         <section className="pageWrapper searchWrapper">
             <div className="fixedWrapper">
                 <div className="searchHeadWrapper">
-                    <div className="header-icon" role="button" tabIndex={0}>
-                        <i className="material-icons">search</i>
+                    <div className="header-icon" onClick={() => setIsSearch(false)} role="button" tabIndex={0}>
+                        <i className="material-icons">arrow_back</i>
                     </div>
                     <div className="header">
                         <t.form.Form ref={searchForm} type={getFormSchema()} value={formData} options={getFormOptions()} onChange={onChange} />
                     </div>
-                    <div className="quit" onClick={() => setIsSearch(false)} role="button" tabIndex={0}>
+                    <div className="quit" onClick={() => setFormValue({})} role="button" tabIndex={0}>
                         <span>
                             <i className="material-icons">clear</i>
                         </span>

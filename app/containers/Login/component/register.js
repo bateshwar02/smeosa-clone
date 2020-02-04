@@ -25,9 +25,12 @@ export function Register({ submitProfile, profile, setLogin, isProgress }) {
         }
         const profileData = Utils.deepCopy(profileForm);
         profileData.accountId = getOrderId();
-        profileData.organisationName = profileForm.name;
+        if (Utils.isUndefinedOrNullOrEmpty(profileForm.organisationName)) {
+            profileData.organisationName = profileForm.name;
+        }
         profileData.potential = 0;
         profileData.leadSource = 'SMEOSA';
+        profileData.token = profile.token;
         submitProfile(profileData);
         setLogin(false);
     };
@@ -42,7 +45,7 @@ export function Register({ submitProfile, profile, setLogin, isProgress }) {
         </div>
     );
 
-    const getFormSchema = () => t.struct({ name: smeForm.refinements.name, email: smeForm.refinements.email });
+    const getFormSchema = () => t.struct({ name: smeForm.refinements.name, email: smeForm.refinements.email, organisationName: t.maybe(t.String) });
     const getFormOptions = () => ({
         template: getLoginFormTemplate,
         fields: {
@@ -74,6 +77,14 @@ export function Register({ submitProfile, profile, setLogin, isProgress }) {
                 },
                 type: 'email',
             },
+            organisationName: {
+                label: 'Company',
+                template: smeForm.templates.textbox,
+                attrs: {
+                    placeholder: 'Enter Company Name',
+                },
+                type: 'Text',
+            },
         },
     });
 
@@ -81,6 +92,7 @@ export function Register({ submitProfile, profile, setLogin, isProgress }) {
         <>
             <div className="input-with-action">{locals.inputs.name}</div>
             <div className="input-with-action">{locals.inputs.email}</div>
+            <div className="input-with-action">{locals.inputs.organisationName}</div>
         </>
     );
 

@@ -14,6 +14,10 @@ const Service = {
         const url = `/api/v1/organisation/create`;
         return Request.post(url, formData);
     },
+    getUserDetails() {
+        const url = '/api/v1/account/detail';
+        return Request.get(url);
+    },
     setCredential(ofbToken, organisationId) {
         if (ofbToken) {
             cookie.set('auth-token', ofbToken, { expires: Infinity });

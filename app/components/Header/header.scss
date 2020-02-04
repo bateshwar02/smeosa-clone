@@ -4,7 +4,7 @@
 @import "../../utils/style/form";
 @import "../../utils/style/mixins";
 
-header{position: absolute; top: 0px; left: 0px; height: 160px; right: 0px; overflow: hidden;}
+header{position: absolute; top: 0px; left: 0px; /*height: 160px;*/ right: 0px; overflow: hidden;}
 .blank {background: #07003b; height: 24px;}
 
 .detailPageHeader{ background: linear-gradient(to right, #6a3bc9 30%, #1589ee 70%);
@@ -128,7 +128,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6a3bc9', end
     background: rgba(0,0,0,0.3);
     z-index: 100;
   }
-
+  .nodataFound{ position: absolute; top: 75px; height: 100%; width: 100%; left:0px; right:0px; background: #fff;display: flex;
+    flex-direction: column; justify-content: flex-start;  align-content: center; align-items: center;
+    .image { margin-top: 70px; img {height: 70px; width: 134px;} }     
+    .noDataHeader {font-size: 18px; color: #222222;  padding-top: 20px;}
+    .text {font-size: 12px; color: #222222;  padding-top: 20px;}
+}
 
 // @media (max-width: 767px) {
 //     .headerWrap{ min-height: 56px; }

@@ -4,12 +4,19 @@
  */
 
 import { toast } from 'react-toastify';
-import { PAGE_INFO, NOTIFICATION_SUCCESS, NOTIFICATION_ERROR, NOTIFICATION_WARN } from './constants';
+import { PAGE_INFO, NOTIFICATION_SUCCESS, NOTIFICATION_ERROR, NOTIFICATION_WARN, IS_LOGIN_INFO } from './constants';
 
 export function updatePageInfo(pageInfo) {
     return {
         type: PAGE_INFO,
         pageInfo,
+    };
+}
+
+export function updateLoginStatus(loginDetails) {
+    return {
+        type: IS_LOGIN_INFO,
+        loginDetails,
     };
 }
 

@@ -23,6 +23,7 @@ export function Login({ step, sendOtp, isOtpSent, submitOtp, profile, submitProf
     if (step === STEPS.SUBMIT) {
         setLogin(false);
     }
+
     const [formData, setFormData] = useState({});
     const [isProgress, setIsProgress] = useState(false);
     const [isProgressRegister, setIsProgressRegister] = useState(false);

@@ -21,7 +21,7 @@ const checkStatus = res => {
 
 module.exports = {
     get: (url, callback, headers = {}, beServer) => {
-        fetch(getBaseUrl(beServer) + url, { method: 'GET', ...headers })
+        fetch(getBaseUrl(beServer) + url, { method: 'GET', headers })
             .then(checkStatus)
             .then(res => res.json())
             .then(json => {

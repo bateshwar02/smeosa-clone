@@ -13,3 +13,4 @@ export const NOTIFICATION_SUCCESS = 'app/App/NOTIFICATION_SUCCESS';
 export const NOTIFICATION_ERROR = 'app/App/NOTIFICATION_ERROR';
 export const NOTIFICATION_WARN = 'app/App/NOTIFICATION_WARN';
 export const PAGE_INFO = 'app/App/PAGE_INFO';
+export const IS_LOGIN_INFO = 'app/App/IS_LOGIN_INFO';

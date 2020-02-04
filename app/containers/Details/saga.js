@@ -17,18 +17,21 @@ function* categoryDetailsSaga({ regionId, typeId, setIsProcessing }) {
         setIsProcessing(false);
     } catch (e) {
         yield put(notifyError(e));
+        setIsProcessing(false);
     }
 }
 
-function* brandDetailsSaga({ regionId, typeId }) {
+function* brandDetailsSaga({ regionId, typeId, setIsProcessing }) {
     const detailPage = yield select(makeSetStateDetails());
     try {
         const detailPageClone = Utils.deepCopy(detailPage);
         const apiCall = yield call(api.getDetailsDataByBrand, regionId, typeId);
         detailPageClone.brandDetails = apiCall.data;
         yield put(setState(detailPageClone));
+        setIsProcessing(false);
     } catch (e) {
         yield put(notifyError(e));
+        setIsProcessing(false);
     }
 }
 

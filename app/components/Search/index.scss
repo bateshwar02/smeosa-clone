@@ -1,4 +1,6 @@
-.searchWrapper{ min-height: 700px; background: #f5f8fb; width: 100%;  flex-direction: row; align-items: center;
+.fixedWrapper{ background: #fff; padding: 10px 0px; box-shadow: 0 2px 4px 0 rgba(99, 99, 99, 0.2); }
+
+.searchWrapper{ min-height: 700px; background:#f4f6fc; width: 100%;  flex-direction: row; align-items: center;
     .selectOption {
         .form-group-searchData {
             .control-label {display: none;}
@@ -7,7 +9,7 @@
     }
 
     .searchHeadWrapper{
-        color: #31394e; opacity: 70%;  min-height: 80px; display: flex; flex-direction: row; align-items: center; padding: 12px 0px; background-color: #fff; box-shadow: 0 2px 4px 0 hsla(0,0%,39%,.2);
+        color: #31394e; opacity: 70%;  min-height: 50px; display: flex; flex-direction: row; align-items: center; background:#f4f6fc;  /*padding: 12px 0px;  box-shadow: 0 2px 4px 0 hsla(0,0%,39%,.2);*/
         .header-icon {padding-left: 16px;
             i {font-size: 28px;}
             .backIcon { padding-left: 16px; padding-top: 18px;
@@ -22,14 +24,14 @@
                 input{ height: 40px; border: none; background-color: #f4f6fc; margin: 0px 15px;}
                 margin-bottom: 0px;
             }
-            .form-group-searchValue{  position: absolute; top: 95px;  width: 75%; margin-left: 8px;
+            .form-group-searchValue{  position: absolute; top: 80px;  width: 100%; left: 0px;
                 .control-label{display:none}
                 .checkboxLabel>span:before { border: 0px; background: none; }
                 .checkboxLabel>span:after { border: 0px; background: none; }
-                input{ height: 20px; border: none; margin: 0px 10px}
+                input{ height: 10px; border: none; margin: 0px 10px}
                 .checkbox-group{ cursor: pointer;
-                    div{ padding: 10px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #d4d4d4; 
-                        label{cursor: pointer;}
+                    div{ padding: 2px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #d4d4d4;  display: flex; 
+                        label{cursor: pointer; width:100%}
                     }
                 }
             }
@@ -42,4 +44,7 @@
         }
         .quit {span{margin-right: 16px; i{font-size: 28 px;}}}
     }
+}
+.customOption{ display: flex; flex-direction: row; border-bottom:0px !important; justify-content: space-between ;
+    .type{font-size: 10px; color: #7101cd; border: 1px solid #ece8ef; padding: 1px 5px; margin: 0px 10px 1px 0px; border-radius: 9px;}
 }

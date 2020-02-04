@@ -16,10 +16,11 @@ export function getCategoryDetails(regionId, typeId, setIsProcessing) {
     };
 }
 
-export function getBrandDetails(regionId, typeId) {
+export function getBrandDetails(regionId, typeId, setIsProcessing) {
     return {
         type: GET_BRAND_DETAIL,
         regionId,
         typeId,
+        setIsProcessing,
     };
 }

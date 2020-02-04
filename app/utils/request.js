@@ -84,19 +84,19 @@ export default {
         return request(getBaseUrl(beServer) + url, { method: 'GET', headers: getHeaders(header) });
     },
     get(url, beServer, header) {
-        // const data = new Promise(resolve => {
-        //     resolve(BRAND_CATEGORY_DATA);
-        // });
-        // return data;
         return request(getBaseUrl(beServer) + url, { method: 'GET', headers: getHeaders(header) });
     },
     post(url, data, beServer, contentType, header) {
-        let body = data;
+        let body = Utils.deepCopy(data);
+        const headers = getHeaders(header, contentType);
+        if (!Utils.isUndefinedOrNullOrEmpty(data.token)) {
+            headers['X-OFB-TOKEN'] = data.token;
+            delete body.token;
+        }
         if (contentType !== 'application/octet-stream') {
             body = JSON.stringify(data);
         }
-
-        return request(getBaseUrl(beServer) + url, { method: 'POST', headers: getHeaders(header, contentType), body });
+        return request(getBaseUrl(beServer) + url, { method: 'POST', headers, body });
     },
     put(url, data, beServer, header) {
         return request(getBaseUrl(beServer) + url, { method: 'PUT', headers: getHeaders(header), body: JSON.stringify(data) });

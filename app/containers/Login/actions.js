@@ -18,10 +18,11 @@ export function submitOtp(formData, setIsProgress, detailPageUrl, history) {
     };
 }
 
-export function updateStatus({ step }) {
+export function updateStatus({ step, isOtpSent }) {
     return {
         type: UPDATE_STATUS,
         step,
+        isOtpSent,
     };
 }
 

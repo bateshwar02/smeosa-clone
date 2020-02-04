@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const PropyMiddleware = require('./propyMiddleware');
+const SetCookiesFromHeader = require('./setCookiesFromHeader');
 const InitHeadersMiddleware = require('./initHeadersMiddleware');
+const AccountMiddleware = require('./accountMiddleware');
 
 function createWebpackMiddleware(compiler, publicPath) {
     return webpackDevMiddleware(compiler, {
@@ -31,7 +33,9 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
     app.use(cookieParser());
 
     app.use(PropyMiddleware);
+    app.use(SetCookiesFromHeader);
     app.use(InitHeadersMiddleware);
+    app.use(AccountMiddleware);
 
     // Since webpackDevMiddleware uses memory-fs internally to store build
     // artifacts, we use it instead

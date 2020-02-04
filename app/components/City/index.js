@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useRef } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -15,20 +15,14 @@ import reducer from '../../containers/Home/reducer';
 import saga from '../../containers/Home/saga';
 import './index.scss';
 
-export function City({ homeData, getDataByRegionId, setStateDate }) {
+export function City({ getDataByRegionId, setStateDate, region }) {
     useInjectReducer({ key: 'homePage', reducer });
     useInjectSaga({ key: 'homePage', saga });
 
     const regionForm = useRef(null);
     const [cityFormValue, setFormValue] = useState({});
-    const [cityOptionData, setPopularCityOption] = useState([]);
+    const [cityOptionData, setPopularCityOption] = useState(region);
     const emptyRegionData = Utils.isUndefinedOrNullOrEmptyObject(cityOptionData);
-
-    useEffect(() => {
-        if (!Utils.isUndefinedOrNullOrEmptyList(homeData.regions)) {
-            setPopularCityOption(homeData.regions);
-        }
-    }, [homeData.regions]);
 
     const onChange = formValue => {
         const customData = Utils.deepCopy(cityOptionData);
@@ -99,12 +93,14 @@ export function City({ homeData, getDataByRegionId, setStateDate }) {
                 },
             },
             popularCity: {
+                label: 'Popular City',
                 template: smeForm.templates.checkbox,
                 nullOption: false,
                 options: cityOption().popularCity,
                 factory: t.form.Radio,
             },
             otherCity: {
+                label: 'Other City',
                 template: smeForm.templates.checkbox,
                 nullOption: false,
                 options: cityOption().otherCity,
@@ -132,9 +128,9 @@ export function City({ homeData, getDataByRegionId, setStateDate }) {
 }
 
 City.propTypes = {
-    homeData: PropTypes.object.isRequired,
     getDataByRegionId: PropTypes.func.isRequired,
     setStateDate: PropTypes.func.isRequired,
+    region: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

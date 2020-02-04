@@ -12,6 +12,7 @@ const loginReducer = (state = initialState, action) =>
                 break;
             case UPDATE_STATUS:
                 draft.step = action.step;
+                draft.isOtpSent = action.isOtpSent;
                 break;
             case UPDATE_PROFILE:
                 draft.profile = action.profile;

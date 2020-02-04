@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Utils from '../../utils/common';
-import { COMMON } from '../../utils/constants';
+import { COMMON, ICON_URL } from '../../utils/constants';
 import './home.scss';
 
 function Home({ homePageData, getDetails }) {
+    const { smeosaProductCategoryDtoList, smeosaBrandsDtoList, regionId } = homePageData;
     const getCategory = () => {
-        const { smeosaProductCategoryDtoList, regionId } = homePageData;
         if (Utils.isUndefinedOrNullOrEmptyList(smeosaProductCategoryDtoList)) {
             return false;
         }
@@ -30,7 +30,6 @@ function Home({ homePageData, getDetails }) {
     };
 
     const getBrand = () => {
-        const { smeosaBrandsDtoList, regionId } = homePageData;
         if (Utils.isUndefinedOrNullOrEmptyList(smeosaBrandsDtoList)) {
             return false;
         }
@@ -48,6 +47,19 @@ function Home({ homePageData, getDetails }) {
             </div>
         ));
     };
+
+    const getNoDataFound = () => (
+        <div className="nodataFound">
+            <span className="image">
+                <img src={`${ICON_URL}No Resulr Found_button.svg`} alt="no data found" />
+            </span>
+            <span className="noDataHeader">Sorry, no Data found!</span>
+        </div>
+    );
+
+    if (Utils.isUndefinedOrNullOrEmptyList(smeosaBrandsDtoList) && Utils.isUndefinedOrNullOrEmptyList(smeosaProductCategoryDtoList)) {
+        return <div className="homeWrapper">{getNoDataFound()}</div>;
+    }
 
     return (
         <div className="homeWrapper">

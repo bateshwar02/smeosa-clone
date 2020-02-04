@@ -68,10 +68,16 @@ export function HomePage({ homeData, getCategoryBrandData, history, getRegion })
             url = `${url}&img=${image}`;
         }
         if (!Utils.isUndefinedOrNullOrEmpty(authToken)) {
-            history.push(url);
+            window.location = url;
+            // history.push(url);
             return;
         }
         setDetailPageUrl(url);
+        setLogin(true);
+    };
+
+    const setLoginFromSideBar = () => {
+        setSideDrawerOpen(false);
         setLogin(true);
     };
 
@@ -98,6 +104,7 @@ export function HomePage({ homeData, getCategoryBrandData, history, getRegion })
     return (
         <section className="pageWrapper">
             <Header
+                homeData={homeData}
                 toggleMenu={drawerToggleClickHandler}
                 isCustomHeader={false}
                 history={history}
@@ -105,8 +112,9 @@ export function HomePage({ homeData, getCategoryBrandData, history, getRegion })
                 isLogin={isLogin}
                 setLogin={setLogin}
                 detailPageUrl={detailPageUrl}
+                region={region}
             />
-            <Sidebar show={sideDrawerOpen} />
+            <Sidebar show={sideDrawerOpen} setLogin={setLoginFromSideBar} />
             <div className="contentDataWrapper">
                 <Home homePageData={brandCategory} getDetails={getDetails} />
             </div>

@@ -18,8 +18,8 @@ export const COMMON = {
         BRAND: 'brand',
     },
     DETAILS_FILTER: {
-        CATEGORY: 'Brand',
-        BRAND: 'Category',
+        CATEGORY: 'Brands',
+        BRAND: 'Categories',
     },
 };
 
