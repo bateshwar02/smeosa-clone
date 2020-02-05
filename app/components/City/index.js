@@ -26,20 +26,22 @@ export function City({ getDataByRegionId, setStateDate, region }) {
 
     const onChange = formValue => {
         const customData = Utils.deepCopy(cityOptionData);
-        const { data } = customData;
-        if (!Utils.isUndefinedOrNull(formValue.search) && formValue.search.length > 2) {
+        if (!Utils.isUndefinedOrNull(formValue.search) && formValue.search.length > 0) {
             const input = formValue.search;
-            const filterData = data.filter(item => item.regionName.toUpperCase().includes(input.toUpperCase()));
-            customData.data = filterData;
-            setPopularCityOption(customData);
+            const filterData = customData.filter(item => item.regionName.toUpperCase().includes(input.toUpperCase()));
+            setPopularCityOption(filterData);
+            setFormValue(formValue);
             return;
         }
-        if (!Utils.isUndefinedOrNullOrEmptyList(formValue.popularCity[0])) {
+        if (!Utils.isUndefinedOrNull(formValue.search) && formValue.search.length === 0) {
+            setPopularCityOption(region);
+        }
+        if (!Utils.isUndefinedOrNullOrEmptyList(formValue.popularCity)) {
             getDataByRegionId(formValue.popularCity[0]);
             setStateDate(false);
         }
         if (!Utils.isUndefinedOrNullOrEmptyList(formValue.otherCity)) {
-            getDataByRegionId(formValue.popularCity[0]);
+            getDataByRegionId(formValue.otherCity[0]);
             setStateDate(false);
         }
         setFormValue(formValue);
